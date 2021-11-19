@@ -1,0 +1,35 @@
+Tokyo, (35.68, 139.76), firewall
+Miami, (25.77, -80.19)
+Ottawa, (45.42, -75.69)
+Dhaka, (23.81, 90.41), firewall
+Vancouver, (49.28, -123.12), firewall
+Sao Paulo, (-23.55, -46.63)
+Mumbai, (19.08, 72.88), firewall
+Chicago, (41.88, -87.63)
+Shanghai, (31.23, 121.49)
+Karachi, (25.07, 67.2)
+Baghdad, (33.3, 4.38)
+Chongqing, (29.43, 106.91), firewall
+-------------------------------------
+Tokyo, Miami
+Tokyo, Chicago
+Tokyo, Vancouver
+Miami, Mumbai
+Miami, Chicago
+Ottawa, Dhaka
+Ottawa, Karachi
+Dhaka, Vancouver
+Vancouver, Chongqing
+Sao Paulo, Mumbai
+Sao Paulo, Dhaka
+Mumbai, Chicago
+Chicago, Shanghai
+Shanghai, Karachi
+Shanghai, Sao Paulo
+Shanghai, Chongqing
+Karachi, Baghdad
+Karachi, Chongqing
+Karachi, Mumbai
+Baghdad, Chongqing
+Baghdad, Ottawa
+
