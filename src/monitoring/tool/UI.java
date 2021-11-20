@@ -9,12 +9,13 @@ public class UI
     Manager manager;
     JFrame window;
 
-    String backgroundImagePath = "C:\\Users\\braes\\Desktop\\school\\Yr3\\Term Project\\src\\resources\\fuckingwork_1810x908.png";
+    String backgroundImagePath = "C:\\Users\\braes\\Desktop\\school\\Yr3\\Term Project\\src\\resources\\map_1810x908.PNG";
     String nodeImagePath = "C:\\Users\\braes\\Desktop\\school\\Yr3\\Term Project\\src\\resources\\greencircle15x15.png";
     public JTextField cmdInput;
     public JPanel backgroundMap;
     public JLabel backgroundMapLabel;
     public JLabel nodeLabel;
+    public JLabel linelabel;
 
 
     //constructor
@@ -76,6 +77,13 @@ public class UI
         backgroundMap.add(nodeLabel);
         backgroundMap.add(backgroundMapLabel);
         backgroundMap.repaint();
+    }
+    public void drawConnection(int x1, int y1, int x2, int y2)
+    {
+        linelabel = new JLabel();
+
+        backgroundMap.add(linelabel);
+
     }
     public int latToY(double lat)
     {
