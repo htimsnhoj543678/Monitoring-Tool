@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class Main
 {
     //make sure there is no blank line at the end of Graph.txt or it will throw an exception
-    public static final String graphPath = "C:\\Users\\braes\\Desktop\\school\\Yr3\\Term Project\\src\\resources\\Graph.txt";
+    public static final String graphPath = "src\\resources\\Graph.txt";
+
     public static ArrayList<Node> nodeList= new ArrayList();
     //reads in from Graph.txt up until "---", makes a node out of each line with lat/lon firewall true/false
     //draws the node xy position on the map
