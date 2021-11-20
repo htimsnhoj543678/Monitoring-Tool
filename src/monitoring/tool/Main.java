@@ -1,14 +1,17 @@
 package monitoring.tool;
-import java.awt.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.Math.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main
 {
-    public static void readInNodes (Manager manager)
+    public static final String graphPath = "C:\\Users\\braes\\Desktop\\school\\Yr3\\Term Project\\src\\resources\\Graph.txt";
+    public static ArrayList<Node> nodeList= new ArrayList();
+    //reads in from Graph.txt up until "---", makes a node out of each line with lat/lon firewall true/false
+    //draws the node xy position on the map
+    //adds that node to nodeList
+    public static void readInNodes(Manager manager)
     {
         String cityname;
         double lat;
@@ -16,7 +19,7 @@ public class Main
         String tempString;
 
         try {
-            FileInputStream input = new FileInputStream("C:\\Users\\braes\\Desktop\\school\\Yr3\\Term Project\\src\\resources\\Graph.txt");
+            FileInputStream input = new FileInputStream(graphPath);
             Scanner scanin = new Scanner(input);
             while(scanin.hasNextLine())
             {
@@ -28,8 +31,8 @@ public class Main
                 else
                 {
                     //city name
-                    String parts[] = nextline.split(", ");
-                    cityname = parts[0];
+                    String parts1[] = nextline.split(", ");
+                    cityname = parts1[0];
 
                     //lat and lon
                     String parts2[] = nextline.split("[\\(\\)]");
@@ -38,19 +41,69 @@ public class Main
                     lat = Double.parseDouble(parts3[0]);
                     lon = Double.parseDouble(parts3[1]);
 
+                    //firewall true/false
                     Node tempNode = new Node(cityname,lat,lon,false);
                     if(nextline.contains("firewall"))
                     {
                         tempNode.setFirewallStatus(true);
                     }
+
+                    //display nodes on map
                     manager.ui.createNodes(manager.ui.lonToX(tempNode.getLon()),manager.ui.latToY(tempNode.getLat()));
-                    System.out.println(tempNode.getName()+" "+tempNode.getFirewallStatus());
+
+                    //set nodes x and y pos
+                    tempNode.setXY(manager.ui.lonToX(tempNode.getLon()),manager.ui.latToY(tempNode.getLat()));
+
+                    //insert node into list
+                    nodeList.add(tempNode);
                 }
             }
+            scanin.close();
+
         }
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+    }
+    //reads in from Graph.txt after "---", reads origin city and its destination for each line
+    //adds destination city to origincitys private "connections" list
+    public static void readInConnections()
+    {
+        ArrayList<String> connectionsList = new ArrayList<>();
+
+        try
+        {
+            FileInputStream input = new FileInputStream(graphPath);
+            Scanner scanin = new Scanner(input);
+            while(scanin.hasNextLine())
+            {
+                if(scanin.nextLine().equals("-------------------------------------"))
+                {
+                    while(scanin.hasNextLine())
+                    {
+                        connectionsList.add(scanin.nextLine());
+                    }
+                }
+            }
+            scanin.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        for(int i = 0; i < connectionsList.size();i++)
+        {
+            String splitstring[] = connectionsList.get(i).split(", ");
+            String originCity = splitstring[0];
+            String destCity = splitstring[1];
+            for(int j = 0; j < nodeList.size();j++)
+            {
+                if(nodeList.get(j).getName().equals(originCity))
+                {
+                    nodeList.get(j).insertConnection(destCity);
+                }
+            }
         }
     }
 
@@ -58,6 +111,10 @@ public class Main
     {
         Manager manager = new Manager();
         readInNodes(manager);
-
+        readInConnections();
+        for(int i = 0; i < nodeList.size();i++)
+        {
+            System.out.println("Name: "+nodeList.get(i).getName()+" Connections:"+nodeList.get(i).getConnections()+" Xpos:"+nodeList.get(i).getXpos()+" Ypos:"+nodeList.get(i).getYpos()+" Lat:"+nodeList.get(i).getLat()+" Lon:"+nodeList.get(i).getLon()+" Firewall:"+nodeList.get(i).getFirewallStatus());
+        }
     }
 }
