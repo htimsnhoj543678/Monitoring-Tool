@@ -9,8 +9,8 @@ public class UI
     Manager manager;
     JFrame window;
 
-    String backgroundImagePath = "C:\\Users\\braes\\Desktop\\school\\Yr3\\Term Project\\src\\resources\\map_1810x908.PNG";
-    String nodeImagePath = "C:\\Users\\braes\\Desktop\\school\\Yr3\\Term Project\\src\\resources\\greencircle15x15.png";
+    String backgroundImagePath = "src\\resources\\map_1810x908.PNG";
+    String nodeImagePath = "src\\resources\\greencircle15x15.png";
     public JTextField cmdInput;
     public JPanel backgroundMap;
     public JLabel backgroundMapLabel;
