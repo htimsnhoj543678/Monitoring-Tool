@@ -2,9 +2,9 @@ package monitoring.tool;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
+import java.awt.geom.Line2D;
 
-public class UI
+public class UI extends JFrame
 {
     Manager manager;
     JFrame window;
@@ -15,8 +15,7 @@ public class UI
     public JPanel backgroundMap;
     public JLabel backgroundMapLabel;
     public JLabel nodeLabel;
-    public JLabel linelabel;
-
+    public JLabel lineLabel;
 
     //constructor
     public UI (Manager manager)
@@ -44,9 +43,14 @@ public class UI
         cmdInput.setBackground(Color.black);
         cmdInput.setForeground(Color.white);
         cmdInput.setEditable(true);
-//        cmdInput.setLineWrap(true);
-//        cmdInput.setWrapStyleWord(true);
         window.add(cmdInput);
+
+        //submit button
+        JButton button =new JButton("Enter");
+        button.setBounds(1220,930,95,30);
+        window.add(button);
+
+
     }
 
     public void createBackground()
@@ -63,6 +67,23 @@ public class UI
         backgroundMapLabel.setBounds(7,7,1810,908);
         ImageIcon backgroundImage = new ImageIcon(backgroundImagePath);
         backgroundMapLabel.setIcon(backgroundImage);
+
+
+    }
+
+    public void createLine(int x1, int y1, int x2, int y2, Color color)
+    {
+        lineLabel = new Line(x1, y1, x2, y2, color);
+        int JPwidth = backgroundMap.getWidth();
+        int JPheight = backgroundMap.getHeight();
+        int startX = 7;
+        int startY = 7;
+
+        lineLabel.setBounds(startX,startY,JPwidth,JPheight);
+
+        backgroundMap.add(lineLabel);
+        backgroundMap.add(backgroundMapLabel);
+        backgroundMap.repaint();
     }
 
     public void createNodes(int nodeX, int nodeY)
@@ -78,19 +99,13 @@ public class UI
         backgroundMap.add(backgroundMapLabel);
         backgroundMap.repaint();
     }
-    public void drawConnection(int x1, int y1, int x2, int y2)
-    {
-        linelabel = new JLabel();
 
-        backgroundMap.add(linelabel);
-
-    }
     public int latToY(double lat)
     {
-        return (int)((manager.ui.backgroundMap.getHeight()/180.0) * (90 - lat));
+        return (int)((manager.ui.backgroundMap.getHeight()/180.00) * (90.00 - lat));
     }
     public int lonToX(double lon)
     {
-        return (int)((manager.ui.backgroundMap.getWidth()/360.0) * (180 + lon));
+        return (int)((manager.ui.backgroundMap.getWidth()/360.00) * (180.00 + lon));
     }
 }
