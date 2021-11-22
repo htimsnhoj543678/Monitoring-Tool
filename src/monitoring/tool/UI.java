@@ -2,7 +2,6 @@ package monitoring.tool;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Line2D;
 
 public class UI extends JFrame
 {
@@ -15,6 +14,7 @@ public class UI extends JFrame
     public JPanel backgroundMap;
     public JLabel backgroundMapLabel;
     public JLabel nodeLabel;
+    public JLabel nodeCityLabel;
     public JLabel lineLabel;
 
     //constructor
@@ -23,8 +23,6 @@ public class UI extends JFrame
         this.manager = manager;
         createMainField();                  //creates the main window and the text input panel for entering commands
         createBackground();                 //creates the background frame for the map image to sit on
-        //createNodes(50,50);    //here nodes can be added by giving their coordinates as integers
-
         window.setVisible(true);            //toggles visibility of the window
     }
 
@@ -49,8 +47,6 @@ public class UI extends JFrame
         JButton button =new JButton("Enter");
         button.setBounds(1220,930,95,30);
         window.add(button);
-
-
     }
 
     public void createBackground()
@@ -67,26 +63,18 @@ public class UI extends JFrame
         backgroundMapLabel.setBounds(7,7,1810,908);
         ImageIcon backgroundImage = new ImageIcon(backgroundImagePath);
         backgroundMapLabel.setIcon(backgroundImage);
-
-
     }
 
     public void createLine(int x1, int y1, int x2, int y2, Color color)
     {
         lineLabel = new Line(x1, y1, x2, y2, color);
-        int JPwidth = backgroundMap.getWidth();
-        int JPheight = backgroundMap.getHeight();
-        int startX = 7;
-        int startY = 7;
-
-        lineLabel.setBounds(startX,startY,JPwidth,JPheight);
-
+        lineLabel.setBounds(7,7,backgroundMap.getWidth(),backgroundMap.getHeight());
         backgroundMap.add(lineLabel);
         backgroundMap.add(backgroundMapLabel);
         backgroundMap.repaint();
     }
 
-    public void createNodes(int nodeX, int nodeY)
+    public void createNodes(int nodeX, int nodeY,String name)
     {
         //create a new label for the node
         nodeLabel = new JLabel();
@@ -94,12 +82,18 @@ public class UI extends JFrame
         ImageIcon nodeImage = new ImageIcon(nodeImagePath);
         nodeLabel.setIcon(nodeImage);
 
+        //create a label for the node name
+        nodeCityLabel = new CityName(name,7,7);
+        nodeCityLabel.setBounds(nodeX,nodeY,backgroundMap.getWidth(),backgroundMap.getHeight());
+        backgroundMap.add(nodeCityLabel);
+
         //add it to the background map
         backgroundMap.add(nodeLabel);
         backgroundMap.add(backgroundMapLabel);
         backgroundMap.repaint();
     }
 
+    //for turning lat/lon into xy coordinates
     public int latToY(double lat)
     {
         return (int)((manager.ui.backgroundMap.getHeight()/180.00) * (90.00 - lat));
