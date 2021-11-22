@@ -14,4 +14,20 @@ public class Attack
         this.date = date;
         this.time = time;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getColorType() {
+        return colorType;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
+    }
 }

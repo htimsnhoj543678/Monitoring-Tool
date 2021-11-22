@@ -14,7 +14,7 @@ public class Node
     private boolean outbreakStatus = false;                         //default false or true if node has more than 4 injections of the same virus in 4 mins
     private int numOfConnections;                                   //number of other nodes this node is connected to
     private ArrayList<String> connections = new ArrayList<>();                                     //list of connected nodes
-    //private Attack[] attacks;                                       //list of attacks
+    private ArrayList<Attack> attacks = new ArrayList<>();                                       //list of attacks
     //private ArrayList<String> attackList = new ArrayList<String>(); //type of attack: red, blue, yellow, or black, can then count # of attacks from this
     private int numOfAttacks;                                       //number of attacks on this node
     //private ArrayList<Node> badConnections;                         //list of connected nodes which are infected
@@ -78,7 +78,17 @@ public class Node
     public void setFirewallStatus(boolean status) {this.firewallStatus = status;}
     public void setOutbreakStatus(boolean status) {this.outbreakStatus = status;}
     public void setXY(int x, int y){this.xpos=x; this.ypos=y;}
+    public void setAttacks(Attack attack) {
+        this.attacks.add(attack);
+    }
 
+    //print attack
+    public void printAttacks(){
+        for (int i = 0; i < attacks.size(); i++) {
+            Attack cAttack = attacks.get(i);
+            System.out.println("Attack:: Name: " + cAttack.getName() + " Colour: " + cAttack.getColorType() + " Date: " + cAttack.getDate() + " Time: " + cAttack.getTime());
+        }
+    }
     //functions
     public void insertConnection(String node)
     {

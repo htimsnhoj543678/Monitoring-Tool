@@ -1,15 +1,18 @@
 package monitoring.tool;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Main
 {
     //make sure there is no blank line at the end of Graph.txt or it will throw an exception
     public static final String graphPath = "src\\resources\\Graph.txt";
-
+    public static final String attackPath = "src\\resources\\Attack.txt";
     public static ArrayList<Node> nodeList= new ArrayList();
+    public static Stack<Attack> attackStack= new Stack();
     //reads in from Graph.txt up until "---", makes a node out of each line with lat/lon firewall true/false
     //draws the node xy position on the map
     //adds that node to nodeList
@@ -108,15 +111,54 @@ public class Main
             }
         }
     }
+    public static void readInAttacks(){
+
+        try
+        {
+            FileInputStream input = new FileInputStream(attackPath);
+            Scanner scanin = new Scanner(input);
+            while(scanin.hasNextLine()) {
+                String line = scanin.nextLine();
+                String[] splitAttack = line.split(", ");
+                attackStack.push(new Attack(splitAttack[0], splitAttack[1], splitAttack[2], splitAttack[3]));
+
+            }
+            scanin.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        while (!attackStack.isEmpty())
+            for (int i = 0; i <= nodeList.size(); i++) {
+                {
+                    System.out.println(i);
+                    if (nodeList.get(i).getName().equals(attackStack.peek().getName())) {
+                        nodeList.get(i).setAttacks(attackStack.peek());
+
+                        attackStack.pop();
+                        break;
+                    }
+                }
+            //System.out.println(nodeList.get(i).getName());
+            //System.out.println(attackStack.peek().getName());
+        }
+
+
+    }
+
+
 
     public static void main(String[] args)
     {
         Manager manager = new Manager();
         readInNodes(manager);
         readInConnections();
+        readInAttacks();
         for(int i = 0; i < nodeList.size();i++)
         {
             System.out.println("Name: "+nodeList.get(i).getName()+" Connections:"+nodeList.get(i).getConnections()+" Xpos:"+nodeList.get(i).getXpos()+" Ypos:"+nodeList.get(i).getYpos()+" Lat:"+nodeList.get(i).getLat()+" Lon:"+nodeList.get(i).getLon()+" Firewall:"+nodeList.get(i).getFirewallStatus());
+            nodeList.get(i).printAttacks();
         }
     }
 }
