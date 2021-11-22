@@ -54,7 +54,7 @@ public class Main
                     int x = manager.ui.lonToX(tempNode.getLon());
                     int y = manager.ui.latToY(tempNode.getLat());
                     //display nodes on map
-                    manager.ui.createNodes(manager.ui.lonToX(tempNode.getLon()),manager.ui.latToY(tempNode.getLat()));
+                    manager.ui.createNodes(manager.ui.lonToX(tempNode.getLon()),manager.ui.latToY(tempNode.getLat()),tempNode.getName());
 
                     //set nodes x and y pos
                     tempNode.setXY(manager.ui.lonToX(tempNode.getLon()),manager.ui.latToY(tempNode.getLat()));
@@ -139,6 +139,7 @@ public class Main
         readInNodes(manager);
         readInConnections();
         drawConnections(manager);
+
         for(int i = 0; i < nodeList.size();i++)
         {
             System.out.println("Name: "+nodeList.get(i).getName()+" Connections:"+nodeList.get(i).getConnections()+" Xpos:"+nodeList.get(i).getXpos()+" Ypos:"+nodeList.get(i).getYpos()+" Lat:"+nodeList.get(i).getLat()+" Lon:"+nodeList.get(i).getLon()+" Firewall:"+nodeList.get(i).getFirewallStatus()+" Num Connections: "+nodeList.get(i).getNumOfConnections());
