@@ -1,18 +1,16 @@
 package monitoring.tool;
+import java.awt.*;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Main
 {
     //make sure there is no blank line at the end of Graph.txt or it will throw an exception
     public static final String graphPath = "src\\resources\\Graph.txt";
-    public static final String attackPath = "src\\resources\\Attack.txt";
+
     public static ArrayList<Node> nodeList= new ArrayList();
-    public static Stack<Attack> attackStack= new Stack();
     //reads in from Graph.txt up until "---", makes a node out of each line with lat/lon firewall true/false
     //draws the node xy position on the map
     //adds that node to nodeList
@@ -53,6 +51,8 @@ public class Main
                         tempNode.setFirewallStatus(true);
                     }
 
+                    int x = manager.ui.lonToX(tempNode.getLon());
+                    int y = manager.ui.latToY(tempNode.getLat());
                     //display nodes on map
                     manager.ui.createNodes(manager.ui.lonToX(tempNode.getLon()),manager.ui.latToY(tempNode.getLat()));
 
@@ -107,58 +107,44 @@ public class Main
                 if(nodeList.get(j).getName().equals(originCity))
                 {
                     nodeList.get(j).insertConnection(destCity);
+                    nodeList.get(j).setNumConnections();
                 }
             }
         }
     }
-    public static void readInAttacks(){
-
-        try
+    public static void drawConnections(Manager manager)
+    {
+        for(int i = 0;i<nodeList.size();i++)                                    //walks through list of nodes
         {
-            FileInputStream input = new FileInputStream(attackPath);
-            Scanner scanin = new Scanner(input);
-            while(scanin.hasNextLine()) {
-                String line = scanin.nextLine();
-                String[] splitAttack = line.split(", ");
-                attackStack.push(new Attack(splitAttack[0], splitAttack[1], splitAttack[2], splitAttack[3]));
+            Node tempNode = nodeList.get(i);                                    //grabs current node
+            ArrayList<String> connections = tempNode.getConnections();          //grabs list of connected cities
+            int x1 = (manager.ui.lonToX(tempNode.getLon()) );                   //current node xpos
+            int y1 = (manager.ui.latToY(tempNode.getLat()) );                   //current node ypos
 
-            }
-            scanin.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        while (!attackStack.isEmpty())
-            for (int i = 0; i <= nodeList.size(); i++) {
+            for(int j = 0;j<nodeList.size();j++)                                //walks through nodes again for name comparison
+            {
+                Node tempNode2 = nodeList.get(j);                               //grabs current node
+                int x2 = (manager.ui.lonToX(tempNode2.getLon()) );              //grabs x2pos
+                int y2 = (manager.ui.latToY(tempNode2.getLat()) );              //grabs y2pos
+                if(tempNode.getConnections().contains(tempNode2.getName()))
                 {
-                    System.out.println(i);
-                    if (nodeList.get(i).getName().equals(attackStack.peek().getName())) {
-                        nodeList.get(i).setAttacks(attackStack.peek());
-
-                        attackStack.pop();
-                        break;
-                    }
+                    manager.ui.createLine(x1,y1,x2,y2,Color.red);               //draws the line
                 }
-            //System.out.println(nodeList.get(i).getName());
-            //System.out.println(attackStack.peek().getName());
+            }
         }
-
-
     }
-
-
-
     public static void main(String[] args)
     {
         Manager manager = new Manager();
         readInNodes(manager);
         readInConnections();
-        readInAttacks();
+        drawConnections(manager);
         for(int i = 0; i < nodeList.size();i++)
         {
-            System.out.println("Name: "+nodeList.get(i).getName()+" Connections:"+nodeList.get(i).getConnections()+" Xpos:"+nodeList.get(i).getXpos()+" Ypos:"+nodeList.get(i).getYpos()+" Lat:"+nodeList.get(i).getLat()+" Lon:"+nodeList.get(i).getLon()+" Firewall:"+nodeList.get(i).getFirewallStatus());
-            nodeList.get(i).printAttacks();
+            System.out.println("Name: "+nodeList.get(i).getName()+" Connections:"+nodeList.get(i).getConnections()+" Xpos:"+nodeList.get(i).getXpos()+" Ypos:"+nodeList.get(i).getYpos()+" Lat:"+nodeList.get(i).getLat()+" Lon:"+nodeList.get(i).getLon()+" Firewall:"+nodeList.get(i).getFirewallStatus()+" Num Connections: "+nodeList.get(i).getNumOfConnections());
         }
+        System.out.println(manager.ui.cmdInput.getText());
+
     }
+
 }
