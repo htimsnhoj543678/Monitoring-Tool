@@ -154,17 +154,25 @@ public class Main extends JFrame
         {
             Node tempNode = nodeList.get(i);                                    //grabs current node
             ArrayList<String> connections = tempNode.getConnections();          //grabs list of connected cities
-            int x1 = (manager.ui.lonToX(tempNode.getLon()) );                   //current node xpos
-            int y1 = (manager.ui.latToY(tempNode.getLat()) );                   //current node ypos
+            int x1 = manager.ui.lonToX(tempNode.getLon());                   //current node xpos
+            int y1 = manager.ui.latToY(tempNode.getLat());                   //current node ypos
 
             for(int j = 0;j<nodeList.size();j++)                                //walks through nodes again for name comparison
             {
                 Node tempNode2 = nodeList.get(j);                               //grabs current node
-                int x2 = (manager.ui.lonToX(tempNode2.getLon()) );              //grabs x2pos
-                int y2 = (manager.ui.latToY(tempNode2.getLat()) );              //grabs y2pos
+                int x2 = manager.ui.lonToX(tempNode2.getLon());              //grabs x2pos
+                int y2 = manager.ui.latToY(tempNode2.getLat());              //grabs y2pos
                 if(tempNode.getConnections().contains(tempNode2.getName()))
                 {
-                    manager.ui.createLine(x1,y1,x2,y2,Color.red);               //draws the line
+                    //manager.ui.createLine(x1,y1,x2,y2,Color.gray);               //draws the line
+                    if(tempNode.getFirewallStatus() == true)
+                    {
+                        manager.ui.createLine(x1,y1,x2,y2,Color.blue);
+                    }
+                    else
+                    {
+                        manager.ui.createLine(x1,y1,x2,y2,Color.gray);
+                    }
                 }
             }
         }
