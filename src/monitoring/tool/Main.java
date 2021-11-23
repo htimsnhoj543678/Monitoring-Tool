@@ -203,7 +203,7 @@ public class Main extends JFrame
         //System.out.println(manager.ui.cmdInput.getText());
         
         //commands: show names, show connections, show xypos, show latlon, show firewall
-        manager.ui.cmdInput.addKeyListener(
+                manager.ui.cmdInput.addKeyListener(
                 new KeyListener(){
                     @Override
                     public void keyPressed(KeyEvent e){
@@ -249,9 +249,32 @@ public class Main extends JFrame
                                 }
                                 System.out.println("\n");
                             }
+                            else if(outcome.equals("show attacks"))
+                            {
+                                for(int i = 0;i<nodeList.size();i++)
+                                {
+                                    nodeList.get(i).printAttacks();
+                                }
+                                System.out.println("\n");
+                            }
+                            else if(outcome.equals("show onlinestatus"))
+                            {
+                                for(int i = 0;i<nodeList.size();i++)
+                                {
+                                    System.out.println(nodeList.get(i).getName()+" "+nodeList.get(i).getOnlineStatus());
+                                }
+                                System.out.println("\n");
+                            }
                             else
                             {
-                                System.out.println("Pick an option");
+                                System.out.println("Commands: ");
+                                System.out.println("show names");
+                                System.out.println("show connections");
+                                System.out.println("show xypos");
+                                System.out.println("show latlon");
+                                System.out.println("show firewall");
+                                System.out.println("show attacks");
+                                System.out.println("show onlinestatus");
                                 System.out.println("\n");
                             }
                         }
