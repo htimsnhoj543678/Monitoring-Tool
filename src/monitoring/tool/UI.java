@@ -2,6 +2,11 @@ package monitoring.tool;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class UI extends JFrame
 {
@@ -23,6 +28,7 @@ public class UI extends JFrame
         this.manager = manager;
         createMainField();                  //creates the main window and the text input panel for entering commands
         createBackground();                 //creates the background frame for the map image to sit on
+        //createButtons();                    //creates buttons
         window.setVisible(true);            //toggles visibility of the window
     }
 
@@ -37,16 +43,11 @@ public class UI extends JFrame
 
         //text input panel
         cmdInput = new JTextField("input commands here");
-        cmdInput.setBounds(10,920,1200,50);
+        cmdInput.setBounds(10,920,500,50);
         cmdInput.setBackground(Color.black);
         cmdInput.setForeground(Color.white);
         cmdInput.setEditable(true);
         window.add(cmdInput);
-
-        //submit button
-        JButton button =new JButton("Enter");
-        button.setBounds(1220,930,95,30);
-        window.add(button);
     }
 
     public void createBackground()
