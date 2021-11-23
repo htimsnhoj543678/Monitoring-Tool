@@ -15,7 +15,8 @@ public class CityName extends JLabel
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        g.setColor(Color.yellow);
+        g.setColor(Color.green);
+        g.setFont(new Font("TimeRoman",Font.PLAIN,10));
         g.drawString(this.name,this.xPos,this.yPos);
 
     }
