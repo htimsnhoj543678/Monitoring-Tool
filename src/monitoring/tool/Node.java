@@ -111,7 +111,7 @@ public class Node
                 if (attacks.get(attacks.size()-1).compareDateTime(attacks.get(i)) <= 120) {
 
                     if (attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType())) {
-                        System.out.println("WARNING: " + this.getName() + " was injected with at least 2 " + attacks.get(0).getColorType() + " viruses in the last 2 minutes");
+                        //System.out.println("WARNING: " + this.getName() + " was injected with at least 2 " + attacks.get(0).getColorType() + " viruses in the last 2 minutes");
                         break;
                     }
                 } else {
@@ -127,7 +127,7 @@ public class Node
                 if (attacks.get(attacks.size()-1).compareDateTime(attacks.get(i)) <= 240) {
 
                     if (attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType())) {
-                        System.out.println("WARNING: " + this.getName() + " was injected with at least 4 " + attacks.get(0).getColorType() + " viruses in the last 4 minutes");
+                        //System.out.println("WARNING: " + this.getName() + " was injected with at least 4 " + attacks.get(0).getColorType() + " viruses in the last 4 minutes");
                         //TODO: implement the outbreak stuff
                         this.outbreakStatus = true;
                         break;
@@ -145,7 +145,8 @@ public class Node
             for (int i = 0; i < attacks.size(); i++) {
                 if ((attacks.get(0).getColorType().equals(attacks.get(i).getColorType()))){
                     this.onlineStatus = false;
-                    System.out.println(this.getName() + " is now OFFLINE");
+                    //System.out.println(this.getName() + " is now OFFLINE");
+		    this.connections = null;
                     break;
                 }
             }
