@@ -2,15 +2,15 @@ package monitoring.tool;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
+import java.util.*;
 public class Main
 {
     //make sure there is no blank line at the end of Graph.txt or it will throw an exception
     public static final String graphPath = "src\\resources\\Graph.txt";
-
+    public static final String attackPath = "src\\resources\\Attack.txt";
+    
     public static ArrayList<Node> nodeList= new ArrayList();
+    public static Queue<Attack> attackQueue = new LinkedList<>();
     //reads in from Graph.txt up until "---", makes a node out of each line with lat/lon firewall true/false
     //draws the node xy position on the map
     //adds that node to nodeList
@@ -112,6 +112,35 @@ public class Main
             }
         }
     }
+    
+    public static void readInAttacks(){
+
+        try
+        {
+            FileInputStream input = new FileInputStream(attackPath);
+            Scanner scanin = new Scanner(input);
+            while(scanin.hasNextLine()) {
+                String line = scanin.nextLine();
+                String[] splitAttack = line.split(", ");
+                attackQueue.add(new Attack(splitAttack[0], splitAttack[1], splitAttack[2], splitAttack[3]));
+
+            }
+            scanin.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        while (!attackQueue.isEmpty()){
+            for (int i = 0; i <= nodeList.size(); i++) {
+                if (nodeList.get(i).getName().equals(attackQueue.peek().getName())) {
+                    nodeList.get(i).setAttacks(attackQueue.poll());
+                    break;
+                }
+            }
+        }
+    }
+    
     public static void drawConnections(Manager manager)
     {
         for(int i = 0;i<nodeList.size();i++)                                    //walks through list of nodes
@@ -139,10 +168,12 @@ public class Main
         readInNodes(manager);
         readInConnections();
         drawConnections(manager);
-
+        readInAttacks();
         for(int i = 0; i < nodeList.size();i++)
         {
             System.out.println("Name: "+nodeList.get(i).getName()+" Connections:"+nodeList.get(i).getConnections()+" Xpos:"+nodeList.get(i).getXpos()+" Ypos:"+nodeList.get(i).getYpos()+" Lat:"+nodeList.get(i).getLat()+" Lon:"+nodeList.get(i).getLon()+" Firewall:"+nodeList.get(i).getFirewallStatus()+" Num Connections: "+nodeList.get(i).getNumOfConnections());
+            nodeList.get(i).printAttacks();
+            nodeList.get(i).printFirewall();
         }
         System.out.println(manager.ui.cmdInput.getText());
 
