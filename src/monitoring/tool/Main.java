@@ -1,9 +1,16 @@
 package monitoring.tool;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Scanner;
 import java.util.*;
-public class Main
+
+public class Main extends JFrame
 {
     //make sure there is no blank line at the end of Graph.txt or it will throw an exception
     public static final String graphPath = "src\\resources\\Graph.txt";
