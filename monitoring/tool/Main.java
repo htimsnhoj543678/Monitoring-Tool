@@ -278,6 +278,14 @@ public class Main extends JFrame
                                 }
                                 System.out.println("\n");
                             }
+                            else if(outcome.equals("show firewalllog"))
+                            {
+                                for(int i = 0;i<nodeList.size();i++)
+                                {
+                                    nodeList.get(i).printFirewall();
+                                }
+                                System.out.println("\n");
+                            }
                             else
                             {
                                 System.out.println("Commands: ");
@@ -288,6 +296,7 @@ public class Main extends JFrame
                                 System.out.println("show firewall");
                                 System.out.println("show attacks");
                                 System.out.println("show onlinestatus");
+                                System.out.println("show firewalllog");
                                 System.out.println("\n");
                             }
                         }
