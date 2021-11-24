@@ -170,7 +170,6 @@ public class Node
     public void outbreak(Attack spread){
         for (int i = 0; i < connections.size(); i++) {
             connections.get(i).setAttacks(new Attack(connections.get(i).getName(), spread.getColorType(), spread.getDate(), spread.getTime()));
-            System.out.println(this.name);
         }
     }
     
