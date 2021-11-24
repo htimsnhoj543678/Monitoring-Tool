@@ -153,7 +153,7 @@ public class Node
                     if (attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType()))
                     {
                         //System.out.println("WARNING: " + this.getName() + " was injected with at least 4 " + attacks.get(0).getColorType() + " viruses in the last 4 minutes");
-                        //TODO: implement the outbreak stuff
+                        outbreak(attacks.get(attacks.size()-1));
                         this.outbreakStatus = true;
                         break;
                     }
@@ -166,6 +166,14 @@ public class Node
             }
         }
     }
+    
+    public void outbreak(Attack spread){
+        for (int i = 0; i < connections.size(); i++) {
+            connections.get(i).setAttacks(new Attack(connections.get(i).getName(), spread.getColorType(), spread.getDate(), spread.getTime()));
+            System.out.println(this.name);
+        }
+    }
+    
     public void check6virus()
     {
         if(attacks.size() > 5)
