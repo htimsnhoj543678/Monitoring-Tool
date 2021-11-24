@@ -23,7 +23,6 @@ public class UI extends JFrame
         this.manager = manager;
         createMainField();                  //creates the main window and the text input panel for entering commands
         createBackground();                 //creates the background frame for the map image to sit on
-        //createButtons();                    //creates buttons
         window.setVisible(true);            //toggles visibility of the window
     }
 
