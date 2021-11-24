@@ -317,10 +317,15 @@ public class Main extends JFrame
 //        //drawing the new node to the map
 //        int x = manager.ui.lonToX(myNode.getLon());
 //        int y = manager.ui.latToY(myNode.getLat());
-//        manager.ui.createNodes(x,y,myNode.getName());
 //
 //        //setting the internal xy position for our node
 //        myNode.setXY(x,y);
+//
+//        //drawing the label
+//        manager.ui.createLabels(x,y,myNode.getName());
+//
+//        //drawing the node
+//        manager.ui.createNode(myNode);
 //
 //        //adding it to the nodeList used in main
 //        nodeList.add(myNode);
@@ -329,7 +334,7 @@ public class Main extends JFrame
 //        Node Ottawa  = nodeList.get(2);
 //
 //        //giving our node a connection (Ottawa)
-//        nodeList.get(nodeList.size()-1).insertConnection("Ottawa");
+//        nodeList.get(nodeList.size()-1).insertConnection(myNode);
 //
 //        //grabbing its xy position
 //        int x2 = manager.ui.lonToX(Ottawa.getLon());
