@@ -166,13 +166,12 @@ public class Node
             }
         }
     }
-    
     public void outbreak(Attack spread){
         for (int i = 0; i < connections.size(); i++) {
             connections.get(i).setAttacks(new Attack(connections.get(i).getName(), spread.getColorType(), spread.getDate(), spread.getTime()));
+            //System.out.println(this.name+" spread something to "+connections.get(i).getName());
         }
     }
-    
     public void check6virus()
     {
         if(attacks.size() > 5)
