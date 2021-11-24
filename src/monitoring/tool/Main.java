@@ -1,4 +1,5 @@
 package monitoring.tool;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,7 +16,7 @@ public class Main extends JFrame
     //make sure there is no blank line at the end of Graph.txt or it will throw an exception
     public static final String graphPath = "src\\resources\\Graph.txt";
     public static final String attackPath = "src\\resources\\Attack.txt";
-    
+
     public static ArrayList<Node> nodeList= new ArrayList();
     public static Queue<Attack> attackQueue = new LinkedList<>();
     //reads in from Graph.txt up until "---", makes a node out of each line with lat/lon firewall true/false
@@ -61,17 +62,16 @@ public class Main extends JFrame
                     int x = manager.ui.lonToX(tempNode.getLon());
                     int y = manager.ui.latToY(tempNode.getLat());
                     //display nodes on map
-                    manager.ui.createNodes(manager.ui.lonToX(tempNode.getLon()),manager.ui.latToY(tempNode.getLat()),tempNode.getName());
+                    manager.ui.createNodes(x,y,tempNode.getName());
 
                     //set nodes x and y pos
-                    tempNode.setXY(manager.ui.lonToX(tempNode.getLon()),manager.ui.latToY(tempNode.getLat()));
+                    tempNode.setXY(x,y);
 
                     //insert node into list
                     nodeList.add(tempNode);
                 }
             }
             scanin.close();
-
         }
         catch (IOException e)
         {
@@ -109,24 +109,31 @@ public class Main extends JFrame
             String splitstring[] = connectionsList.get(i).split(", ");
             String originCity = splitstring[0];
             String destCity = splitstring[1];
+
             for(int j = 0; j < nodeList.size();j++)
             {
                 if(nodeList.get(j).getName().equals(originCity))
                 {
-                    nodeList.get(j).insertConnection(destCity);
-                    nodeList.get(j).setNumConnections();
+                    for(int k = 0; k < nodeList.size(); k++)
+                    {
+                        if(nodeList.get(k).getName().equals(destCity))
+                        {
+                            nodeList.get(j).insertConnection(nodeList.get(k));
+                            nodeList.get(j).setNumConnections();
+                        }
+                    }
                 }
             }
         }
     }
-    
-    public static void readInAttacks(){
-
+    public static void readInAttacks()
+    {
         try
         {
             FileInputStream input = new FileInputStream(attackPath);
             Scanner scanin = new Scanner(input);
-            while(scanin.hasNextLine()) {
+            while(scanin.hasNextLine())
+            {
                 String line = scanin.nextLine();
                 String[] splitAttack = line.split(", ");
                 attackQueue.add(new Attack(splitAttack[0], splitAttack[1], splitAttack[2], splitAttack[3]));
@@ -139,32 +146,31 @@ public class Main extends JFrame
             e.printStackTrace();
         }
         while (!attackQueue.isEmpty()){
-            for (int i = 0; i <= nodeList.size(); i++) {
-                if (nodeList.get(i).getName().equals(attackQueue.peek().getName())) {
+            for (int i = 0; i <= nodeList.size(); i++)
+            {
+                if (nodeList.get(i).getName().equals(attackQueue.peek().getName()))
+                {
                     nodeList.get(i).setAttacks(attackQueue.poll());
                     break;
                 }
             }
         }
     }
-    
     public static void drawConnections(Manager manager)
     {
-        for(int i = 0;i<nodeList.size();i++)                                    //walks through list of nodes
+        for(int i = 0;i<nodeList.size();i++)                                        //walks through list of nodes
         {
-            Node tempNode = nodeList.get(i);                                    //grabs current node
-            ArrayList<String> connections = tempNode.getConnections();          //grabs list of connected cities
-            int x1 = manager.ui.lonToX(tempNode.getLon());                   //current node xpos
-            int y1 = manager.ui.latToY(tempNode.getLat());                   //current node ypos
+            Node tempNode = nodeList.get(i);                                        //grabs current node
+            int x1 = manager.ui.lonToX(tempNode.getLon());                          //current node xpos
+            int y1 = manager.ui.latToY(tempNode.getLat());                          //current node ypos
 
-            for(int j = 0;j<nodeList.size();j++)                                //walks through nodes again for name comparison
+            for(int j = 0;j<nodeList.size();j++)                                    //walks through nodes again for name comparison
             {
-                Node tempNode2 = nodeList.get(j);                               //grabs current node
-                int x2 = manager.ui.lonToX(tempNode2.getLon());              //grabs x2pos
-                int y2 = manager.ui.latToY(tempNode2.getLat());              //grabs y2pos
+                Node tempNode2 = nodeList.get(j);                                   //grabs current node
+                int x2 = manager.ui.lonToX(tempNode2.getLon());                     //grabs x2pos
+                int y2 = manager.ui.latToY(tempNode2.getLat());                     //grabs y2pos
                 if(tempNode.getConnections().contains(tempNode2.getName()))
                 {
-                    //manager.ui.createLine(x1,y1,x2,y2,Color.gray);               //draws the line
                     if(tempNode.getFirewallStatus() == true)
                     {
                         manager.ui.createLine(x1,y1,x2,y2,Color.blue);
@@ -177,6 +183,7 @@ public class Main extends JFrame
             }
         }
     }
+
     public static void main(String[] args)
     {
         Manager manager = new Manager();
@@ -184,26 +191,26 @@ public class Main extends JFrame
         readInConnections();
         drawConnections(manager);
         readInAttacks();
-        for(int i = 0; i < nodeList.size();i++)
-        {
-            System.out.println
-                    (
-                        "Name: "+nodeList.get(i).getName()
-                        +" Connections:"+nodeList.get(i).getConnections()
-                        +" Xpos:"+nodeList.get(i).getXpos()
-                        +" Ypos:"+nodeList.get(i).getYpos()
-                        +" Lat:"+nodeList.get(i).getLat()
-                        +" Lon:"+nodeList.get(i).getLon()
-                        +" Firewall:"+nodeList.get(i).getFirewallStatus()
-                        +" Num Connections: "+nodeList.get(i).getNumOfConnections()
-                     );
-            nodeList.get(i).printAttacks();
-            nodeList.get(i).printFirewall();
-        }
-        //System.out.println(manager.ui.cmdInput.getText());
-        
-        //commands: show names, show connections, show xypos, show latlon, show firewall
-                manager.ui.cmdInput.addKeyListener(
+
+//        //readInNodes() / readInConnections() testing
+//        for(int i = 0; i < nodeList.size();i++)
+//        {
+//            System.out.println
+//                    (
+//                        "Name: "+nodeList.get(i).getName()
+//                        +" Connections:"+nodeList.get(i).getConnections()
+//                        +" Xpos:"+nodeList.get(i).getXpos()
+//                        +" Ypos:"+nodeList.get(i).getYpos()
+//                        +" Lat:"+nodeList.get(i).getLat()
+//                        +" Lon:"+nodeList.get(i).getLon()
+//                        +" Firewall:"+nodeList.get(i).getFirewallStatus()
+//                        +" Num Connections: "+nodeList.get(i).getNumOfConnections()
+//                    );
+//        //nodeList.get(i).printAttacks();
+//        //nodeList.get(i).printFirewall();
+//        }
+
+        manager.ui.cmdInput.addKeyListener(
                 new KeyListener(){
                     @Override
                     public void keyPressed(KeyEvent e){
@@ -286,32 +293,32 @@ public class Main extends JFrame
                 }
         );
 
-        //how to add a node ------------------------------------------------------------------------------------------
-        //making a node for Calgary
-        Node myNode = new Node("Calgary",51.05,-114.07,false);
-
-        //drawing the new node to the map
-        int x = manager.ui.lonToX(myNode.getLon());
-        int y = manager.ui.latToY(myNode.getLat());
-        manager.ui.createNodes(x,y,myNode.getName());
-
-        //setting the internal xy position for our node
-        myNode.setXY(x,y);
-
-        //adding it to the nodeList used in main
-        nodeList.add(myNode);
-
-        //taking a pre-existing node from the list (Ottawa)
-        Node Ottawa  = nodeList.get(2);
-
-        //giving our node a connection (Ottawa)
-        nodeList.get(nodeList.size()-1).insertConnection("Ottawa");
-
-        //grabbing its xy position
-        int x2 = manager.ui.lonToX(Ottawa.getLon());
-        int y2 = manager.ui.latToY(Ottawa.getLat());
-
-        //drawing a line between our node and ottawa
-        manager.ui.createLine(x,y,x2,y2,Color.green);
+//        //how to add a node ------------------------------------------------------------------------------------------
+//        //making a node for Calgary
+//        Node myNode = new Node("Calgary",51.05,-114.07,false);
+//
+//        //drawing the new node to the map
+//        int x = manager.ui.lonToX(myNode.getLon());
+//        int y = manager.ui.latToY(myNode.getLat());
+//        manager.ui.createNodes(x,y,myNode.getName());
+//
+//        //setting the internal xy position for our node
+//        myNode.setXY(x,y);
+//
+//        //adding it to the nodeList used in main
+//        nodeList.add(myNode);
+//
+//        //taking a pre-existing node from the list (Ottawa)
+//        Node Ottawa  = nodeList.get(2);
+//
+//        //giving our node a connection (Ottawa)
+//        nodeList.get(nodeList.size()-1).insertConnection("Ottawa");
+//
+//        //grabbing its xy position
+//        int x2 = manager.ui.lonToX(Ottawa.getLon());
+//        int y2 = manager.ui.latToY(Ottawa.getLat());
+//
+//        //drawing a line between our node and ottawa
+//        manager.ui.createLine(x,y,x2,y2,Color.green);
     }
 }
