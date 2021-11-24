@@ -62,9 +62,8 @@ public class Main extends JFrame
 
                     int x = manager.ui.lonToX(tempNode.getLon());
                     int y = manager.ui.latToY(tempNode.getLat());
-                    //display nodes on map
+                    //display labels on map
                     manager.ui.createLabels(x,y,tempNode.getName());
-                    manager.ui.createNode(tempNode);
 
                     //set nodes x and y pos
                     tempNode.setXY(x,y);
@@ -158,11 +157,6 @@ public class Main extends JFrame
             }
         }
 
-        for (int i = 0; i < nodeList.size(); i++)
-        {
-            nodeList.get(i).checkColor();
-            manager.ui.createNode(nodeList.get(i));
-        }
     }
     public static void drawConnections(Manager manager)
     {
@@ -188,15 +182,23 @@ public class Main extends JFrame
         }
     }
 
+    public static void drawNodes(Manager manager)
+    {
+        for (int i = 0; i < nodeList.size(); i++)
+        {
+            nodeList.get(i).checkColor();
+            manager.ui.createNode(nodeList.get(i));
+        }
+    }
+
     public static void main(String[] args)
     {
         Manager manager = new Manager();
         readInNodes(manager);
         readInConnections();
-        //drawConnections(manager);
         readInAttacks(manager);
+        drawNodes(manager);
         drawConnections(manager);
-
 
 //        //readInNodes() / readInConnections() testing
 //        for(int i = 0; i < nodeList.size();i++)
