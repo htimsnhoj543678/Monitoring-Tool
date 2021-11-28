@@ -212,11 +212,11 @@ public class Main extends JFrame
 
         //next map of updated nodes after an outbreak has spread to other nodes
         //(the outbreak from karachi has spread to shanghai causing it to go offline now too)
-        readInAttacks();
-        manager.ui.removeNodes();
-        manager.ui.removeLines();
-        drawNodes(manager);
-        drawConnections(manager);
+//        readInAttacks();
+//        manager.ui.removeNodes();
+//       manager.ui.removeLines();
+//        drawNodes(manager);
+//        drawConnections(manager);
 
 
 //        //readInNodes() / readInConnections() testing
@@ -296,6 +296,14 @@ public class Main extends JFrame
                                     nodeList.get(i).printFirewall();
                                 }
                                 System.out.println("\n");
+                            }
+                            else if(outcome.equals("update"))
+                            {
+                                readInAttacks();
+                                manager.ui.removeNodes();
+                                manager.ui.removeLines();
+                                drawNodes(manager);
+                                drawConnections(manager);
                             }
                             else
                             {
