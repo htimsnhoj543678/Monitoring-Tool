@@ -9,6 +9,7 @@
 	show attacks
 	show onlinestatus
 	show firewalllog
+	update 
 
 - also, you may hover your mouse over a node to see all the info for it in the text box labeled "Node info will show here"
 
