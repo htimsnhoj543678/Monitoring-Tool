@@ -29,3 +29,11 @@ S: make sure Graph.txt does not have a empty line at the end of the file, this w
 Other notes:
 - If running this app on a Mac laptop, the app window size may seem really big for your screen. Unfortunately it is
 not resizeable
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+things that need to be done:
+- remove node from others connections list if said node is offline
+- function to calculate distance between nodes so that another function may be able to find the shortest route between node a and b
