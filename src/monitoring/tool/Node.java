@@ -148,7 +148,7 @@ public class Node
     {
         if(attacks.size() > 4)
         {
-            for (int i = attacks.size()-2; i >= attacks.size()-4; i--)
+            for (int i = attacks.size()-2; i >= 0; i--)
             {
                 if (attacks.get(attacks.size()-1).compareDateTime(attacks.get(i)) <= 240)
                 {
