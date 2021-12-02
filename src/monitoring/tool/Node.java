@@ -146,15 +146,18 @@ public class Node
     }
     public void check4mins()
     {
+        int counter = 0;
         if(attacks.size() > 4)
         {
             for (int i = attacks.size()-2; i >= 0; i--)
             {
                 if (attacks.get(attacks.size()-1).compareDateTime(attacks.get(i)) <= 240)
                 {
-
                     if (attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType()))
                     {
+                        counter++;
+                    }
+                    if(counter >= 4){
                         //System.out.println("WARNING: " + this.getName() + " was injected with at least 4 " + attacks.get(0).getColorType() + " viruses in the last 4 minutes");
                         outbreak(attacks.get(attacks.size()-1));
                         this.outbreakStatus = true;
