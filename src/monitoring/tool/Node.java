@@ -19,6 +19,7 @@ public class Node
     //private ArrayList<Node> badConnections;                       //list of connected nodes which are infected
     private ArrayList<Attack> firewallLog = new ArrayList<>();      //list of previous attacks if 'firewall' is set to true
     private Color color;
+    private int numberOfAlerts;
 
     //constructor
     public Node (String name, double lat, double lon, boolean firewallStatus)
@@ -55,6 +56,8 @@ public class Node
     public int getLat() {return (int)this.lat;}
     public int getXpos() {return xpos;}
     public int getYpos() {return ypos;}
+    public int getNumberOfAlerts() {return numberOfAlerts;}
+
     public ArrayList<String> getConnections()
     {
         ArrayList<String> connectedNames = new ArrayList<>();
@@ -131,13 +134,14 @@ public class Node
             {
                 if (attacks.get(attacks.size()-1).compareDateTime(attacks.get(i)) <= 120)
                 {
-
                     if (attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType()))
                     {
                         //System.out.println("WARNING: " + this.getName() + " was injected with at least 2 " + attacks.get(0).getColorType() + " viruses in the last 2 minutes");
+                        numberOfAlerts++;
                         break;
                     }
-                } else {
+                }
+                else {
                     break;
                 }
 

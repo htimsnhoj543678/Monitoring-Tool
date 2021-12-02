@@ -211,7 +211,7 @@ public class Main extends JFrame
         readInNodes(manager);
         drawLabels(manager);
         readInConnections();
-        //readInAttacks();
+        readInAttacks();
         drawNodes(manager);
         drawConnections(manager);
 
@@ -310,9 +310,49 @@ public class Main extends JFrame
                                 drawNodes(manager);
                                 drawConnections(manager);
                             }
+                            else if(outcome.contains(":"))
+                            {
+                                String nodeCommand[] = outcome.split(":");
+                                if(nodeCommand[0].equals("show status")){
+                                    for(int i = 0;i<nodeList.size();i++)
+                                    {
+                                        if(nodeCommand[1].equals(nodeList.get(i).getName())){
+                                            System.out.println(nodeList.get(i).getName()+"'s online status is currently: "+ nodeList.get(i).getOnlineStatus());
+                                        }
+                                    }
+                                }
+                                else if(nodeCommand[0].equals("show alerts")){
+                                    for(int i = 0;i<nodeList.size();i++)
+                                    {
+                                        if(nodeCommand[1].equals(nodeList.get(i).getName())){
+                                            System.out.println(nodeList.get(i).getName()+" currently has "+ nodeList.get(i).getNumberOfAlerts() + " alerts");
+                                        }
+                                    }
+                                }
+                                else if(nodeCommand[0].equals("show saferoute")){
+
+                                }
+                                else{
+                                    System.out.println("General Commands: ");
+                                    System.out.println("show names");
+                                    System.out.println("show connections");
+                                    System.out.println("show xypos");
+                                    System.out.println("show latlon");
+                                    System.out.println("show firewall");
+                                    System.out.println("show attacks");
+                                    System.out.println("show onlinestatus");
+                                    System.out.println("show firewalllog");
+                                    System.out.println("\nNode Commands: ");
+                                    System.out.println("show status:[node_name_here]");
+                                    System.out.println("show alerts:[node_name_here]");
+                                    System.out.println("show saferoute:[origin_node_name_here]>[destination_node_name_here]");
+                                    System.out.println("\n");
+                                }
+
+                            }
                             else
                             {
-                                System.out.println("Commands: ");
+                                System.out.println("General Commands: ");
                                 System.out.println("show names");
                                 System.out.println("show connections");
                                 System.out.println("show xypos");
@@ -321,6 +361,10 @@ public class Main extends JFrame
                                 System.out.println("show attacks");
                                 System.out.println("show onlinestatus");
                                 System.out.println("show firewalllog");
+                                System.out.println("\nNode Commands: ");
+                                System.out.println("show status:[node_name_here]");
+                                System.out.println("show alerts:[node_name_here]");
+                                System.out.println("show saferoute:[origin_node_name_here]>[destination_node_name_here]");
                                 System.out.println("\n");
                             }
                         }
