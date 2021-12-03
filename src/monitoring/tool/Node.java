@@ -62,6 +62,11 @@ public class Node
     public int getXpos() {return xpos;}
     public int getYpos() {return ypos;}
     public int getNumberOfAlerts() {return numberOfAlerts;}
+    public boolean isOnlineStatus() {return onlineStatus;}
+
+    public int getFirewallLogSize() {
+        return firewallLog.size();
+    }
 
     public ArrayList<String> getConnections()
     {

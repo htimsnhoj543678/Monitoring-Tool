@@ -272,11 +272,29 @@ public class Main extends JFrame
                             }
                             else if(outcome.equals("show firewall"))
                             {
+                                int count = 0;
                                 for(int i = 0;i<nodeList.size();i++)
                                 {
-                                    System.out.println(nodeList.get(i).getName()+" "+nodeList.get(i).getFirewallStatus());
+                                    if(nodeList.get(i).getFirewallStatus()){
+                                        count++;
+                                        System.out.println(nodeList.get(i).getName()+" "+nodeList.get(i).getFirewallStatus());
+                                    }
+
                                 }
-                                System.out.println("\n");
+                                System.out.println("There are a total of " + count +" nodes that have firewalls\n");
+                            }
+                            else if(outcome.equals("show firewallattacked"))
+                            {
+                                int count = 0;
+                                for(int i = 0;i<nodeList.size();i++)
+                                {
+                                    if(nodeList.get(i).getFirewallStatus() && (nodeList.get(i).getFirewallLogSize()>0)){
+                                        count++;
+                                        System.out.println(nodeList.get(i).getName()+"'s firewall was attacked ");
+                                    }
+
+                                }
+                                System.out.println("There are a total of " + count +" nodes that have firewalls that have been attacked\n");
                             }
                             else if(outcome.equals("show attacks"))
                             {
@@ -300,8 +318,44 @@ public class Main extends JFrame
                                 {
                                     nodeList.get(i).printFirewall();
                                 }
-                                System.out.println("\n");
                             }
+                            else if(outcome.equals("show infected"))
+                            {
+                                int count = 0;
+                                for(int i = 0;i<nodeList.size();i++)
+                                {
+                                    if(nodeList.get(i).numAttacks>0){
+                                        System.out.println(nodeList.get(i).getName()+" is infected");
+                                        count++;
+                                    }
+                                }
+                                System.out.println("There are a total of " + count +" nodes infected\n");
+                            }
+                            else if(outcome.equals("show outbreaks"))
+                            {
+                                int count = 0;
+                                for(int i = 0;i<nodeList.size();i++)
+                                {
+                                    if(nodeList.get(i).getOutbreakStatus()){
+                                        System.out.println(nodeList.get(i).getName()+" has an outbreak");
+                                        count++;
+                                    }
+                                }
+                                System.out.println("There are a total of " + count +" nodes that have outbreaks\n");
+                            }
+                            else if(outcome.equals("show inactive"))
+                            {
+                                int count = 0;
+                                for(int i = 0;i<nodeList.size();i++)
+                                {
+                                    if(!nodeList.get(i).isOnlineStatus()){
+                                        System.out.println(nodeList.get(i).getName()+" is inactive");
+                                        count++;
+                                    }
+                                }
+                                System.out.println("There are a total of " + count +" nodes that are inactive\n");
+                            }
+
                             else if(outcome.equals("update"))
                             {
                                 readInAttacks();
@@ -353,15 +407,21 @@ public class Main extends JFrame
                                     System.out.println("show connections");
                                     System.out.println("show xypos");
                                     System.out.println("show latlon");
-                                    System.out.println("show firewall");
                                     System.out.println("show attacks");
                                     System.out.println("show onlinestatus");
+                                    System.out.println("show firewall");
                                     System.out.println("show firewalllog");
+                                    System.out.println("show firewallattacked");
+                                    System.out.println("show infected");
+                                    System.out.println("show inactive");
+                                    System.out.println("show outbreaks");
+
+
                                     System.out.println("\nNode Commands: ");
                                     System.out.println("show status:[node_name_here]");
                                     System.out.println("show alerts:[node_name_here]");
                                     System.out.println("show saferoutes:[origin_node_name_here]>[destination_node_name_here]");
-                                    System.out.println("\n");
+                                    System.out.println("");
                                 }
 
                             }
@@ -376,10 +436,12 @@ public class Main extends JFrame
                                 System.out.println("show attacks");
                                 System.out.println("show onlinestatus");
                                 System.out.println("show firewalllog");
+                                System.out.println("show infected");
                                 System.out.println("\nNode Commands: ");
                                 System.out.println("show status:[node_name_here]");
                                 System.out.println("show alerts:[node_name_here]");
                                 System.out.println("show saferoutes:[origin_node_name_here]>[destination_node_name_here]");
+                                System.out.println("");
                             }
                         }
                     }
