@@ -314,8 +314,8 @@ public class Main extends JFrame
                             {
                                 String nodeCommand[] = outcome.split(":");
                                 String nodeDest[] = nodeCommand[1].split(">");
-                                Node node = nodeList.get(0);
-                                Node destNode = nodeList.get(0);
+                                Node node = null;
+                                Node destNode = null;
                                 for(int i = 0;i<nodeList.size();i++)
                                 {
                                     if(nodeDest[0].equals(nodeList.get(i).getName())){
@@ -330,8 +330,9 @@ public class Main extends JFrame
                                         }
                                     }
                                 }
-
-                                if(nodeCommand[0].equals("show status")){
+                                if ((node == null) || ((destNode == null)&&(nodeDest.length>1))) {
+                                }
+                                else if(nodeCommand[0].equals("show status")){
                                     System.out.println(node.getName()+"'s online status is currently: "+ node.getOnlineStatus());
                                 }
                                 else if(nodeCommand[0].equals("show alerts")){
@@ -339,6 +340,12 @@ public class Main extends JFrame
                                 }
                                 else if(nodeCommand[0].equals("show saferoutes")){
                                     node.allSafeRoutes(destNode);
+                                }
+                                else if(nodeCommand[0].equals("show viruses")){
+                                    if (node.numAttacks==0){
+                                        System.out.println("There are no viruses on " + node.getName());
+                                    }
+                                    node.printAttacks();
                                 }
                                 else{
                                     System.out.println("General Commands: ");
