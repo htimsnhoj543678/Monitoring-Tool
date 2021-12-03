@@ -206,7 +206,6 @@ public class Main extends JFrame
 
     public static void main(String[] args)
     {
-        //initial map will all given info (only karachi becomes offline)
         Manager manager = new Manager();
         readInNodes(manager);
         drawLabels(manager);
@@ -437,6 +436,7 @@ public class Main extends JFrame
                                 System.out.println("show onlinestatus");
                                 System.out.println("show firewalllog");
                                 System.out.println("show infected");
+                                System.out.println("update");
                                 System.out.println("\nNode Commands: ");
                                 System.out.println("show status:[node_name_here]");
                                 System.out.println("show alerts:[node_name_here]");
