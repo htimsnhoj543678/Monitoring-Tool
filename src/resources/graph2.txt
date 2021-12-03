@@ -1,0 +1,195 @@
+San Francisco, (37.77, -122.41)
+Chicago, (41.87, -87.62), firewall
+Montreal, (45.50, -73.56)
+Los Angeles, (34.05, -118.24)
+Mexico City, (19.43, -99.13)
+Atlanta, (33.74, -84.38), firewall
+Washington, (38.90, -77.03)
+New York, (40.71, -74.00)
+Miami, (25.76, -80.19)
+Bogota, (4.71, -77.04)
+Lima, (-12.04, -77.04), firewall
+Santiago, (-33.44, -70.66), firewall
+Buenos Aries, (-34.60, -58.38)
+Sao Paulo, (-23.55, -46.63)
+London, (35.68, -0.12), firewall
+Paris, (48.85, 2.35)
+Madrid, (40.41, -3.70)
+Essen, (51.45, 7.01)
+Milan, (45.46, 9.19)
+Algiers, (36.75, 3.05)
+Istanbul, (41.00, 28.97)
+St.Petersburg, (27.76, -82.64), firewall
+Moscow, (55.75, 37.61)
+Bagdad, (33.31, 44.36)
+Cairo, (30.04, 31.23)
+Tehran, (35.68, 51.38)
+Riyadh, (24.71, 46.67)
+Khartoum, (15.50, 32.55)
+Lagos, (6.52, 3.37)
+Kinshasa, (-4.44, 15.26)
+Johannesburg, (-26.20, 28.04), firewall
+Karachi, (24.86, 67.00)
+Dehli, (28.70, 77.10)
+Kolkata, (22.57, 88.36)
+Mumbai, (19.07, 72.87)
+Hong kong, (22.31, 114.16), firewall
+Bangkok, (13.75, 100.50)
+Chennai, (13.08, 80.27)
+Jakarta, (6.20, 106.84)
+Shanghai, (31.23, 121.47), firewall
+Beijing, (39.90, 116.40)
+Seoul, (37.56, 126.97)
+Tokyo, (35.67, 139.65), firewall
+Osaka, (34.6937, 135.50)
+Taipei, (25.03, 121.56)
+Manila, (14.59, 120.98)
+Ho Che Minh City, (10.82, 106.62)
+Sydney, (-33.86, 151.20)
+-------------------------------------
+Montreal, Taipei
+Los Angeles, Milan
+Mexico City, Shanghai
+Atlanta, London
+Atlanta, London
+Atlanta, Algiers
+Washington, Istanbul
+Washington, Buenos Aries
+New York, Cairo
+Miami, Osaka
+Miami, Algiers
+Bogota, Kinshasa
+Santiago, Taipei
+Santiago, Miami
+Buenos Aries, Shanghai
+Sao Paulo, Madrid
+London, Johannesburg
+Paris, San Francisco
+Paris, Manila
+Madrid, Sydney
+Madrid, Mumbai
+Essen, Shanghai
+Essen, Lima
+Milan, Khartoum
+Milan, Shanghai
+Algiers, Hong kong
+Algiers, Jakarta
+Istanbul, Tokyo
+Istanbul, Dehli
+St.Petersburg, New York
+Bagdad, St.Petersburg
+Bagdad, New York
+Cairo, Karachi
+Tehran, Miami
+Khartoum, Los Angeles
+Kinshasa, Kolkata
+Johannesburg, Los Angeles
+Kolkata, Mumbai
+Mumbai, St.Petersburg
+Mumbai, Chicago
+Chennai, Sydney
+Chennai, Johannesburg
+Jakarta, Istanbul
+Seoul, Paris
+Taipei, Chicago
+Sydney, San Francisco
+Sydney, Kolkata
+Manila, Seoul
+Milan, Johannesburg
+Istanbul, Kinshasa
+Taipei, Bangkok
+Algiers, Ho Che Minh City
+Sao Paulo, Beijing
+Ho Che Minh City, Sao Paulo
+Los Angeles, Moscow
+Chennai, Taipei
+Atlanta, Moscow
+Taipei, Tehran
+Taipei, Jakarta
+Istanbul, Lagos
+Cairo, Mexico City
+Lima, Riyadh
+London, Osaka
+Tehran, Algiers
+Ho Che Minh City, Hong kong
+Khartoum, New York
+Washington, Sao Paulo
+Riyadh, Tehran
+Chicago, Buenos Aries
+Lima, Sydney
+Chicago, Washington
+Cairo, Osaka
+Kolkata, Beijing
+Khartoum, Taipei
+Tokyo, Johannesburg
+Bagdad, Johannesburg
+Montreal, Manila
+Jakarta, Miami
+Beijing, Algiers
+Osaka, Riyadh
+Riyadh, Beijing
+Lima, Chicago
+Madrid, Seoul
+Seoul, Osaka
+Lima, Shanghai
+Mumbai, Manila
+Istanbul, Osaka
+Lagos, Ho Che Minh City
+Mumbai, Shanghai
+Jakarta, Moscow
+Kinshasa, Milan
+Madrid, Tehran
+Taipei, Algiers
+Shanghai, Tokyo
+Miami, Mumbai
+Atlanta, Ho Che Minh City
+Lima, Osaka
+Riyadh, Chicago
+Jakarta, Paris
+Johannesburg, Montreal
+Kolkata, Los Angeles
+Istanbul, Madrid
+Madrid, New York
+Lima, Milan
+St.Petersburg, Johannesburg
+Shanghai, Moscow
+Madrid, Lima
+Chennai, Johannesburg
+Buenos Aries, Milan
+Kinshasa, Cairo
+Santiago, Ho Che Minh City
+San Francisco, Miami
+Jakarta, Chicago
+New York, Mexico City
+Lima, New York
+Sydney, Atlanta
+Madrid, Moscow
+Paris, Hong kong
+Algiers, Mumbai
+Lagos, Taipei
+Paris, Buenos Aries
+Riyadh, Essen
+Cairo, Mumbai
+Lima, Chennai
+Dehli, Shanghai
+Lima, Dehli
+Milan, Paris
+Mumbai, Seoul
+Essen, Mumbai
+Bagdad, Kinshasa
+London, Milan
+Mumbai, Paris
+Beijing, Montreal
+Lagos, Cairo
+Kinshasa, Manila
+Milan, Montreal
+Karachi, Mexico City
+Moscow, Sydney
+Taipei, Paris
+Algiers, Chennai
+Buenos Aries, St.Petersburg
+Algiers, Sao Paulo
+Mumbai, Dehli
+Lagos, Milan
+Jakarta, Osaka
+Dehli, Hong kong

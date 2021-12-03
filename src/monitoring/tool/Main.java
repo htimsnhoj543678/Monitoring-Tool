@@ -211,7 +211,7 @@ public class Main extends JFrame
         readInNodes(manager);
         drawLabels(manager);
         readInConnections();
-        //readInAttacks();
+        readInAttacks();
         drawNodes(manager);
         drawConnections(manager);
 
@@ -310,9 +310,57 @@ public class Main extends JFrame
                                 drawNodes(manager);
                                 drawConnections(manager);
                             }
+                            else if(outcome.contains(":"))
+                            {
+                                String nodeCommand[] = outcome.split(":");
+                                String nodeDest[] = nodeCommand[1].split(">");
+                                Node node = nodeList.get(0);
+                                Node destNode = nodeList.get(0);
+                                for(int i = 0;i<nodeList.size();i++)
+                                {
+                                    if(nodeDest[0].equals(nodeList.get(i).getName())){
+                                        node = nodeList.get(i);
+                                    }
+                                }
+                                if(nodeDest.length>1){
+                                    for(int i = 0;i<nodeList.size();i++)
+                                    {
+                                        if(nodeDest[1].equals(nodeList.get(i).getName())){
+                                            destNode = nodeList.get(i);
+                                        }
+                                    }
+                                }
+
+                                if(nodeCommand[0].equals("show status")){
+                                    System.out.println(node.getName()+"'s online status is currently: "+ node.getOnlineStatus());
+                                }
+                                else if(nodeCommand[0].equals("show alerts")){
+                                    System.out.println(node.getName()+" currently has "+ node.getNumberOfAlerts() + " alerts");
+                                }
+                                else if(nodeCommand[0].equals("show saferoutes")){
+                                    node.allSafeRoutes(destNode);
+                                }
+                                else{
+                                    System.out.println("General Commands: ");
+                                    System.out.println("show names");
+                                    System.out.println("show connections");
+                                    System.out.println("show xypos");
+                                    System.out.println("show latlon");
+                                    System.out.println("show firewall");
+                                    System.out.println("show attacks");
+                                    System.out.println("show onlinestatus");
+                                    System.out.println("show firewalllog");
+                                    System.out.println("\nNode Commands: ");
+                                    System.out.println("show status:[node_name_here]");
+                                    System.out.println("show alerts:[node_name_here]");
+                                    System.out.println("show saferoutes:[origin_node_name_here]>[destination_node_name_here]");
+                                    System.out.println("\n");
+                                }
+
+                            }
                             else
                             {
-                                System.out.println("Commands: ");
+                                System.out.println("General Commands: ");
                                 System.out.println("show names");
                                 System.out.println("show connections");
                                 System.out.println("show xypos");
@@ -321,7 +369,10 @@ public class Main extends JFrame
                                 System.out.println("show attacks");
                                 System.out.println("show onlinestatus");
                                 System.out.println("show firewalllog");
-                                System.out.println("\n");
+                                System.out.println("\nNode Commands: ");
+                                System.out.println("show status:[node_name_here]");
+                                System.out.println("show alerts:[node_name_here]");
+                                System.out.println("show saferoutes:[origin_node_name_here]>[destination_node_name_here]");
                             }
                         }
                     }

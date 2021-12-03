@@ -1,6 +1,9 @@
 package monitoring.tool;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Stack;
 
 public class Node
 {
@@ -19,6 +22,8 @@ public class Node
     //private ArrayList<Node> badConnections;                       //list of connected nodes which are infected
     private ArrayList<Attack> firewallLog = new ArrayList<>();      //list of previous attacks if 'firewall' is set to true
     private Color color;
+    private int numberOfAlerts;
+    public int numAttacks;
 
     //constructor
     public Node (String name, double lat, double lon, boolean firewallStatus)
@@ -30,6 +35,7 @@ public class Node
         this.onlineStatus = true;
         this.outbreakStatus = false;
         this.color = Color.green;
+        this.numAttacks = 0;
     }
 
     //getters
@@ -55,6 +61,8 @@ public class Node
     public int getLat() {return (int)this.lat;}
     public int getXpos() {return xpos;}
     public int getYpos() {return ypos;}
+    public int getNumberOfAlerts() {return numberOfAlerts;}
+
     public ArrayList<String> getConnections()
     {
         ArrayList<String> connectedNames = new ArrayList<>();
@@ -116,6 +124,7 @@ public class Node
             this.firewallLog.add(attack);
         }
         else if(this.onlineStatus){
+            this.numAttacks++;
             this.attacks.add(attack);
             this.check2mins();
             this.check4mins();
@@ -131,13 +140,14 @@ public class Node
             {
                 if (attacks.get(attacks.size()-1).compareDateTime(attacks.get(i)) <= 120)
                 {
-
                     if (attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType()))
                     {
                         //System.out.println("WARNING: " + this.getName() + " was injected with at least 2 " + attacks.get(0).getColorType() + " viruses in the last 2 minutes");
+                        numberOfAlerts++;
                         break;
                     }
-                } else {
+                }
+                else {
                     break;
                 }
 
@@ -259,6 +269,31 @@ public class Node
     public void insertConnection(Node node)
     {
         this.connections.add(node);
+    }
+
+    public void allSafeRoutes(Node destNode){
+        Stack<Node> visitedNodes = new Stack<Node>();
+        this.allSafeRoutes(destNode, visitedNodes);
+
+    }
+    public void allSafeRoutes(Node destNode, Stack<Node> visitedNodes){
+
+        visitedNodes.push(this);
+        if (this == destNode){
+            for (int i = 0; i < visitedNodes.size(); i++) {
+                System.out.print(visitedNodes.get(i).getName()+" ");
+            }
+            System.out.println("");
+        }
+        for (int i = 0; i < this.connections.size(); i++) {
+            if(!visitedNodes.contains(connections.get(i)) && (connections.get(i).numAttacks == 0)){
+                connections.get(i).allSafeRoutes(destNode, visitedNodes);
+            }
+
+        }
+        visitedNodes.pop();
+
+
     }
 
 }
