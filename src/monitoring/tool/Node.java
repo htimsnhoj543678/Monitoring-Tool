@@ -1,8 +1,6 @@
 package monitoring.tool;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Stack;
 
 public class Node
@@ -20,6 +18,9 @@ public class Node
     private ArrayList<Attack> attacks = new ArrayList<>();          //list of attacks
     private int numOfAttacks;                                       //number of attacks on this node
     //private ArrayList<Node> badConnections;                       //list of connected nodes which are infected
+
+    ArrayList<Node> nodeList= new ArrayList();
+
     private ArrayList<Attack> firewallLog = new ArrayList<>();      //list of previous attacks if 'firewall' is set to true
     private Color color;
     private int numberOfAlerts;
@@ -134,8 +135,16 @@ public class Node
             this.check2mins();
             this.check4mins();
             this.check6virus();
+            if(!this.onlineStatus){
+                this.goesInactive();
+            }
         }
     }
+
+    public void setNodeList(ArrayList<Node> nodeList) {
+        this.nodeList = nodeList;
+    }
+
     public void check2mins()
     {
 
@@ -297,8 +306,44 @@ public class Node
 
         }
         visitedNodes.pop();
+    }
 
+    public void goesInactive(){
+        for (int i = 0; i < nodeList.size(); i++) {
+            for (int j = 0; j < nodeList.size(); j++) {
+                ArrayList<Node> conn = nodeList.get(i).getConnectedNodes();
+                if(nodeList.get(i).getConnectedNodes().contains(this)){
+                    conn.remove(this);
+                    nodeList.get(i).updateConnections(conn);
+                }
+            }
+        }
+    }
 
+    public void updateConnections(ArrayList<Node> connections){
+        this.connections = connections;
+        this.numOfConnections--;
+    }
+
+    public void ajdMatrix(){
+        System.out.print("X ");
+        for (int i = 0; i < nodeList.size(); i++) {
+            System.out.print(i + " ");
+        }
+        System.out.println("");
+        for (int i = 0; i < nodeList.size(); i++) {
+            System.out.print(i + " ");
+            for (int j = 0; j < nodeList.size(); j++) {
+                if(nodeList.get(i).getConnectedNodes().contains(nodeList.get(j))){
+                    System.out.print("1 ");
+                }
+                else{
+                    System.out.print("0 ");
+                }
+            }
+            System.out.println("");
+        }
+        System.out.println("");
     }
 
 }

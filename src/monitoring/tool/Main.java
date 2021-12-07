@@ -82,7 +82,6 @@ public class Main extends JFrame
     public static void readInConnections()
     {
         ArrayList<String> connectionsList = new ArrayList<>();
-
         try
         {
             FileInputStream input = new FileInputStream(graphPath);
@@ -111,6 +110,7 @@ public class Main extends JFrame
 
             for(int j = 0; j < nodeList.size();j++)
             {
+                nodeList.get(j).setNodeList(nodeList);
                 if(nodeList.get(j).getName().equals(originCity))
                 {
                     for(int k = 0; k < nodeList.size(); k++)
@@ -130,6 +130,7 @@ public class Main extends JFrame
     }
     public static void readInAttacks()
     {
+        //nodeList.get(0).ajdMatrix();//TODO: temporary delete later
         try
         {
             FileInputStream input = new FileInputStream(attackPath);
@@ -157,6 +158,7 @@ public class Main extends JFrame
                 }
             }
         }
+        //nodeList.get(0).ajdMatrix();//TODO: temporary delete later
     }
     public static void drawConnections(Manager manager)
     {
@@ -414,7 +416,6 @@ public class Main extends JFrame
                                     System.out.println("show infected");
                                     System.out.println("show inactive");
                                     System.out.println("show outbreaks");
-
 
                                     System.out.println("\nNode Commands: ");
                                     System.out.println("show status:[node_name_here]");
