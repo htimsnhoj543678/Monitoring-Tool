@@ -17,7 +17,7 @@ public class Main extends JFrame
     public static final String graphPath = "src\\resources\\Graph.txt";
     public static final String attackPath = "src\\resources\\Attack.txt";
     public static ArrayList<Node> nodeList= new ArrayList();
-    public static Queue<Attack> attackQueue = new LinkedList<>();
+    public static ArrayList<Attack> attackList = new ArrayList();
 
     //reads in from Graph.txt up until "---", makes a node out of each line with lat/lon firewall true/false
     //draws the node xy position on the map
@@ -127,7 +127,10 @@ public class Main extends JFrame
                 }
             }
         }
+        System.out.println("This is the initial adjacency matrix before any attacks are read in: ");
+        nodeList.get(0).adjMatrix();
     }
+
     public static void readInAttacks()
     {
         //nodeList.get(0).ajdMatrix();//TODO: temporary delete later
@@ -139,7 +142,7 @@ public class Main extends JFrame
             {
                 String line = scanin.nextLine();
                 String[] splitAttack = line.split(", ");
-                attackQueue.add(new Attack(splitAttack[0], splitAttack[1], splitAttack[2], splitAttack[3]));
+                attackList.add(new Attack(splitAttack[0], splitAttack[1], splitAttack[2], splitAttack[3]));
 
             }
             scanin.close();
@@ -147,6 +150,25 @@ public class Main extends JFrame
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+
+        boolean finished = false;
+        while (!finished) {
+            finished = true;
+            for (int i = 0; i < attackList.size() - 1; i++) {
+                Attack holder;
+                if ((attackList.get(i).getTotalDate().compareTo(attackList.get(i + 1).getTotalDate())) > 0) {
+                    holder = attackList.get(i);
+                    attackList.set(i, attackList.get(i + 1));
+                    attackList.set(i + 1, holder);
+                    finished = false;
+                }
+            }
+        }
+        Queue<Attack> attackQueue = new LinkedList<>();
+        for (int i = 0; i < attackList.size(); i++) {
+            attackQueue.add(attackList.get(i));
+
         }
         while (!attackQueue.isEmpty()){
             for (int i = 0; i <= nodeList.size(); i++)
@@ -158,7 +180,10 @@ public class Main extends JFrame
                 }
             }
         }
-        //nodeList.get(0).ajdMatrix();//TODO: temporary delete later
+
+
+        System.out.println("This is the adjacency matrix after the attacks are read in: ");
+        nodeList.get(0).adjMatrix();
     }
     public static void drawConnections(Manager manager)
     {
@@ -301,7 +326,7 @@ public class Main extends JFrame
                             {
                                 for(int i = 0;i<nodeList.size();i++)
                                 {
-                                    nodeList.get(i).printAttacks();
+                                    nodeList.get(i).sortAttacksByColour();
                                 }
                                 System.out.println("\n");
                             }
@@ -317,7 +342,7 @@ public class Main extends JFrame
                             {
                                 for(int i = 0;i<nodeList.size();i++)
                                 {
-                                    nodeList.get(i).printFirewall();
+                                    nodeList.get(i).sortAttacksByColour();;
                                 }
                             }
                             else if(outcome.equals("show infected"))
@@ -343,6 +368,11 @@ public class Main extends JFrame
                                     }
                                 }
                                 System.out.println("There are a total of " + count +" nodes that have outbreaks\n");
+                            }
+                            else if(outcome.equals("show adjmatrix"))
+                            {
+                                System.out.println("This is the current adjacency matrix: ");
+                                nodeList.get(0).adjMatrix();
                             }
                             else if(outcome.equals("show inactive"))
                             {
@@ -394,13 +424,33 @@ public class Main extends JFrame
                                     System.out.println(node.getName()+" currently has "+ node.getNumberOfAlerts() + " alerts");
                                 }
                                 else if(nodeCommand[0].equals("show saferoutes")){
-                                    node.allSafeRoutes(destNode);
+                                    if(node.numAttacks>0){
+                                        System.out.println("Cannot display safe routes between " + node.getName() + " and " + destNode.getName() + ", "+ node.getName() + " has a virus");
+                                    }
+                                    else if(destNode.numAttacks>0){
+                                        System.out.println("Cannot display safe routes between " + node.getName() + " and " + destNode.getName() + ", "+ destNode.getName() + " has a virus");
+                                    }
+                                    else{
+                                        System.out.println("Safe routes between " + node.getName() + " and " + destNode.getName() + " are:");
+                                        node.allSafeRoutes(destNode);
+                                    }
+
+                                }
+                                else if(nodeCommand[0].equals("show firewalllog")){
+                                    if (node.getFirewallStatus()){
+                                        System.out.println( node.getName()+ " has a firewall:");
+                                        node.sortAttacksByColour();
+                                    }
+                                    else{
+                                        System.out.println("There is no firewall on this " + node.getName());
+                                    }
                                 }
                                 else if(nodeCommand[0].equals("show viruses")){
                                     if (node.numAttacks==0){
                                         System.out.println("There are no viruses on " + node.getName());
                                     }
-                                    node.printAttacks();
+                                    System.out.println(node.getName() + " has the following viruses:");
+                                    node.sortAttacksByColour();
                                 }
                                 else{
                                     System.out.println("General Commands: ");
@@ -416,10 +466,13 @@ public class Main extends JFrame
                                     System.out.println("show infected");
                                     System.out.println("show inactive");
                                     System.out.println("show outbreaks");
+                                    System.out.println("show adjmatrix");
 
                                     System.out.println("\nNode Commands: ");
                                     System.out.println("show status:[node_name_here]");
                                     System.out.println("show alerts:[node_name_here]");
+                                    System.out.println("show show firewalllog:[node_name_here]");
+                                    System.out.println("show viruses:[node_name_here]");
                                     System.out.println("show saferoutes:[origin_node_name_here]>[destination_node_name_here]");
                                     System.out.println("");
                                 }
@@ -432,15 +485,21 @@ public class Main extends JFrame
                                 System.out.println("show connections");
                                 System.out.println("show xypos");
                                 System.out.println("show latlon");
-                                System.out.println("show firewall");
                                 System.out.println("show attacks");
                                 System.out.println("show onlinestatus");
+                                System.out.println("show firewall");
                                 System.out.println("show firewalllog");
+                                System.out.println("show firewallattacked");
                                 System.out.println("show infected");
-                                System.out.println("update");
+                                System.out.println("show inactive");
+                                System.out.println("show outbreaks");
+                                System.out.println("show adjmatrix");
+
                                 System.out.println("\nNode Commands: ");
                                 System.out.println("show status:[node_name_here]");
                                 System.out.println("show alerts:[node_name_here]");
+                                System.out.println("show show firewalllog:[node_name_here]");
+                                System.out.println("show viruses:[node_name_here]");
                                 System.out.println("show saferoutes:[origin_node_name_here]>[destination_node_name_here]");
                                 System.out.println("");
                             }

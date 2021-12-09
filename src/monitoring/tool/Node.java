@@ -16,6 +16,7 @@ public class Node
     private int numOfConnections;                                   //number of other nodes this node is connected to
     private ArrayList<Node> connections = new ArrayList<>();        //list of connected nodes
     private ArrayList<Attack> attacks = new ArrayList<>();          //list of attacks
+
     private int numOfAttacks;                                       //number of attacks on this node
     //private ArrayList<Node> badConnections;                       //list of connected nodes which are infected
 
@@ -156,7 +157,7 @@ public class Node
                 {
                     if (attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType()))
                     {
-                        //System.out.println("WARNING: " + this.getName() + " was injected with at least 2 " + attacks.get(0).getColorType() + " viruses in the last 2 minutes");
+                        System.out.println("Alert!!! " + this.getName() + " was injected with at least 2 " + attacks.get(0).getColorType() + " viruses in the last 2 minutes");
                         numberOfAlerts++;
                         break;
                     }
@@ -182,9 +183,14 @@ public class Node
                         counter++;
                     }
                     if(counter >= 4){
-                        //System.out.println("WARNING: " + this.getName() + " was injected with at least 4 " + attacks.get(0).getColorType() + " viruses in the last 4 minutes");
+                        System.out.println("WARNING - OUTBREAK: " + this.getName() + " was injected with at least 4 " + attacks.get(0).getColorType() + " viruses in the last 4 minutes");
+                        System.out.println("This is the adjacency matrix before the outbreak: ");
+                        adjMatrix();
                         outbreak(attacks.get(attacks.size()-1));
+                        System.out.println("This is the adjacency matrix after the outbreak: ");
+                        adjMatrix();
                         this.outbreakStatus = true;
+
                         break;
                     }
                 }
@@ -220,29 +226,89 @@ public class Node
             }
         }
     }
-    public void sortAttacks()
+    public ArrayList<Attack> sortAttacksByTime(ArrayList<Attack> outAttacks)
     {
-        //TODO: Optimize this sort to reduce time or this sort might not be needed.
-        if (this.attacks.size()>1)
-        {
-            int pos = 0;
-            for (int j = 0; j < this.attacks.size(); j++)
-            {
-                Attack lowest = this.attacks.get(j);
-                for (int i = j; i < this.attacks.size(); i++)
-                {
-                    if(0<(lowest.getTotalDate().compareTo(this.attacks.get(i).getTotalDate())));
-                    lowest = this.attacks.get(i);
-                    System.out.println(lowest.getTime());
-                    pos = i;
+        if (outAttacks.size()>1) {
+            boolean finished = false;
+            while (!finished) {
+                finished = true;
+                for (int i = 0; i < outAttacks.size() - 1; i++) {
+                    Attack holder;
+                    if ((outAttacks.get(i).getTotalDate().compareTo(outAttacks.get(i + 1).getTotalDate())) > 0) {
+                        holder = outAttacks.get(i);
+                        outAttacks.set(i, attacks.get(i + 1));
+                        outAttacks.set(i + 1, holder);
+                        finished = false;
+                    }
                 }
-                this.attacks.set(pos,  attacks.get(j));
-                this.attacks.set(j, lowest);
             }
-            printAttacks();
+        }
+        return outAttacks;
+    }
+
+    public void sortAttacksByColour()
+    {
+        ArrayList<Attack> attackList;
+        if(firewallStatus){
+            attackList = this.firewallLog;
+        }
+        else{
+            attackList = this.attacks;
+        }
+        ArrayList<Attack> redAttacks = new ArrayList<>();
+        ArrayList<Attack> blueAttacks = new ArrayList<>();
+        ArrayList<Attack> yellowAttacks = new ArrayList<>();
+        ArrayList<Attack> blackAttacks = new ArrayList<>();
+        for (int i = 0; i < attackList.size(); i++) {
+            switch (attackList.get(i).getColorType()) {
+                case "red" -> redAttacks.add(attackList.get(i));
+                case "blue" -> blueAttacks.add(attackList.get(i));
+                case "yellow" -> yellowAttacks.add(attackList.get(i));
+                case "black" -> blackAttacks.add(attackList.get(i));
+            }
+        }
+        redAttacks = sortAttacksByTime(redAttacks);
+        blueAttacks = sortAttacksByTime(blueAttacks);
+        yellowAttacks = sortAttacksByTime(yellowAttacks);
+        blackAttacks = sortAttacksByTime(blackAttacks);
+
+        ForSorting red = new ForSorting(redAttacks.size(), redAttacks);
+        ForSorting blue = new ForSorting(blueAttacks.size(), blueAttacks);
+        ForSorting yellow = new ForSorting(yellowAttacks.size(), yellowAttacks);
+        ForSorting black = new ForSorting(blackAttacks.size(), blackAttacks);
+
+        ArrayList<ForSorting> toSort = new ArrayList<>();
+        toSort.add(red);
+        toSort.add(blue);
+        toSort.add(yellow);
+        toSort.add(black);
+
+        boolean finished = false;
+        while (!finished) {
+            finished = true;
+
+            for (int i = 0; i < toSort.size() - 1; i++) {
+                ForSorting holder;
+                if (toSort.get(i).getCount() < toSort.get(i+1).getCount()) {
+                    holder = toSort.get(i);
+                    toSort.set(i, toSort.get(i + 1));
+                    toSort.set(i + 1, holder);
+                    finished = false;
+                }
+            }
+        }
+
+        for (int i = 0; i < toSort.size(); i++) {
+            for (int j = 0; j < toSort.get(i).getColorAttacks().size(); j++) {
+
+                Attack cAttack = toSort.get(i).getColorAttacks().get(j);
+                System.out.println("Attack:: Name: " + cAttack.getName() + " Colour: " + cAttack.getColorType() + " Date: " + cAttack.getDate() + " Time: " + cAttack.getTime());
+
+            }
         }
 
     }
+
     //print attack
     public void printAttacks()
     {
@@ -295,7 +361,10 @@ public class Node
         visitedNodes.push(this);
         if (this == destNode){
             for (int i = 0; i < visitedNodes.size(); i++) {
-                System.out.print(visitedNodes.get(i).getName()+" ");
+                System.out.print(visitedNodes.get(i).getName());
+                if (i != visitedNodes.size()-1){
+                    System.out.print(", ");
+                }
             }
             System.out.println("");
         }
@@ -325,7 +394,7 @@ public class Node
         this.numOfConnections--;
     }
 
-    public void ajdMatrix(){
+    public void adjMatrix(){
         System.out.print("X ");
         for (int i = 0; i < nodeList.size(); i++) {
             System.out.print(i + " ");
