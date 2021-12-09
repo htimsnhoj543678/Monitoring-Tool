@@ -168,6 +168,8 @@ public class Main extends JFrame
         Queue<Attack> attackQueue = new LinkedList<>();
         for (int i = 0; i < attackList.size(); i++) {
             attackQueue.add(attackList.get(i));
+            Attack cAttack = attackList.get(i);
+            System.out.println("Attack:: Name: " + cAttack.getName() + " Colour: " + cAttack.getColorType() + " Date: " + cAttack.getDate() + " Time: " + cAttack.getTime());
 
         }
         while (!attackQueue.isEmpty()){
@@ -432,8 +434,15 @@ public class Main extends JFrame
                                     }
                                     else{
                                         System.out.println("Safe routes between " + node.getName() + " and " + destNode.getName() + " are:");
+
+
                                         node.allSafeRoutes(destNode);
                                     }
+                                }
+                                else if(nodeCommand[0].equals("show shortestpath")){
+                                    System.out.println("Shortest path between " + node.getName() + " and " + destNode.getName() + " is:");
+                                    node.shortestPath(destNode);
+
 
                                 }
                                 else if(nodeCommand[0].equals("show firewalllog")){
