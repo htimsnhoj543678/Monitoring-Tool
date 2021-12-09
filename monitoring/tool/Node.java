@@ -131,15 +131,45 @@ public class Node
         if (firewallStatus)
         {
             this.firewallLog.add(attack);
+            if (firewallLog.size()>1){
+                if((firewallLog.get(firewallLog.size()-2).getColorType().equals(attack.getColorType()) && (firewallLog.get(firewallLog.size()-2).compareDateTime(attack) == 0))){
+                    this.firewallLog.remove(attack);
+                }
+            }
         }
+        /*
+
+Karachi, red, 2021-03-22, 12:10:00
+Karachi, red, 2021-03-21, 14:07:33
+Karachi, red, 2021-03-25, 16:55:00
+Karachi, red, 2021-03-21, 10:31:23
+Karachi, red, 2021-03-21, 10:31:55
+Karachi, red, 2021-08-30, 23:11:00
+Karachi, red, 2021-10-25, 15:48:00*/
         else if(this.onlineStatus){
             this.numAttacks++;
             this.attacks.add(attack);
-            this.check2mins();
-            this.check4mins();
-            this.check6virus();
-            if(!this.onlineStatus){
-                this.goesInactive();
+            if (numAttacks>1){
+                if(!(attacks.get(numAttacks-2).getColorType().equals(attack.getColorType()) && (attacks.get(numAttacks-2).compareDateTime(attack) == 0))){
+                    this.check2mins();
+                    this.check4mins();
+                    this.check6virus();
+                    if(!this.onlineStatus){
+                        this.goesInactive();
+                    }
+                }
+                else{
+                    this.numAttacks--;
+                    this.attacks.remove(attack);
+                }
+            }
+            else{
+                this.check2mins();
+                this.check4mins();
+                this.check6virus();
+                if(!this.onlineStatus){
+                    this.goesInactive();
+                }
             }
         }
     }
