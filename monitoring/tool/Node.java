@@ -137,15 +137,6 @@ public class Node
                 }
             }
         }
-        /*
-
-Karachi, red, 2021-03-22, 12:10:00
-Karachi, red, 2021-03-21, 14:07:33
-Karachi, red, 2021-03-25, 16:55:00
-Karachi, red, 2021-03-21, 10:31:23
-Karachi, red, 2021-03-21, 10:31:55
-Karachi, red, 2021-08-30, 23:11:00
-Karachi, red, 2021-10-25, 15:48:00*/
         else if(this.onlineStatus){
             this.numAttacks++;
             this.attacks.add(attack);
@@ -420,6 +411,10 @@ Karachi, red, 2021-10-25, 15:48:00*/
         return out;
     }
 
+    /**
+     * shortestPath is a polymorphic function which
+     * @param destNode the destination node
+     */
     public void shortestPath(Node destNode){
         //show saferoutes:Miami>Sao Paulo
         Stack<Node> visitedNodes = new Stack<>();
@@ -454,7 +449,16 @@ Karachi, red, 2021-10-25, 15:48:00*/
         }
     }
 
-
+    /**
+     * this is the seccond polymorphic version of shortestPath which is called on the required nodes inorder to find a
+     * shortest path to the destination node
+     * @param destNode Destination node
+     * @param visitedNodes Stack of previously visited nodes
+     * @param path The current path to the destination node
+     * @param toVisit Queue of nodes to visit when the time comes
+     * @return The node prior to the destination node in the shortest path which is then fed back in to find the path to
+     * it until the full path is found
+     */
     public Node shortestPath(Node destNode, Stack<Node> visitedNodes , ArrayList<Node>path, Queue<Node>toVisit){
         visitedNodes.push(this);
         if(this.connections.contains(destNode)){
@@ -477,7 +481,16 @@ Karachi, red, 2021-10-25, 15:48:00*/
         return path.get(path.size()-1);
     }
 
+    /**
+     * Function checkForPath(Node destNode, Stack<Node> visitedNodes) is used by the shortest path method to determine
+     * if there are any paths at all available. This is done by calling checkForPath(Node destNode, Stack<Node> visitedNodes)
+     * on each of the relevant nodes.
+     * @param destNode The destination node
+     * @param visitedNodes a stack of nodes previously visited
+     * @return -1 if no path was found, 1 if path was found
+     */
     public int checkForPath(Node destNode, Stack<Node> visitedNodes) {
+
         int out = -1;
         visitedNodes.push(this);
         if (this == destNode) {
@@ -493,8 +506,13 @@ Karachi, red, 2021-10-25, 15:48:00*/
         visitedNodes.pop();
         return out;
     }
-
+    /**
+     * goesInactive() is called when a node goes offline. The function allows a node to remove itself from the
+     * all other nodes connections list by calling updateConnections(ArrayList<Node> connections) on each of the
+     * relevant nodes.
+     * **/
     public void goesInactive(){
+
         for (int i = 0; i < nodeList.size(); i++) {
             for (int j = 0; j < nodeList.size(); j++) {
                 ArrayList<Node> conn = nodeList.get(i).getConnectedNodes();
@@ -506,11 +524,21 @@ Karachi, red, 2021-10-25, 15:48:00*/
         }
     }
 
+    /**
+     * This function is called by goesInactive() and changes a given node's connections to the provided connection
+     * and then increments the numOfConnections variable accordingly
+     * @param connections the connections list that you want to set the node to have.
+     */
     public void updateConnections(ArrayList<Node> connections){
+
         this.connections = connections;
         this.numOfConnections--;
     }
 
+    /**
+     * This function generates the adjacency matrix from the graph. All nodes will output the same adjacency matrix
+     * if they are using the same data.
+     */
     public void adjMatrix(){
         System.out.print("X ");
         for (int i = 0; i < nodeList.size(); i++) {
