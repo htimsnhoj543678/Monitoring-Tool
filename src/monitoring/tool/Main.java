@@ -378,7 +378,7 @@ public class Main extends JFrame {
                                 }
                                 else if(nodeCommand[0].equals("show shortestpath")){
                                     System.out.println("Shortest path between " + node.getName() + " and " + destNode.getName() + " is:");
-                                    //node.shortestPath(destNode);
+                                    node.shortestPath(destNode);
                                 }
                                 else if(nodeCommand[0].equals("show saferoutes")) {
                                     assert destNode != null;
