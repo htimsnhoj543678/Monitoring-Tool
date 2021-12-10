@@ -216,7 +216,7 @@ public class Main extends JFrame {
 
         System.out.println("Menu: \n");
         System.out.println("Enter Help to show commands ");
-        System.out.println("show names: Shows all nodes ");
+        System.out.println("show names:             Shows all nodes ");
         System.out.println("show connections:       Shows current connections of active nodes");
         System.out.println("show xypos:             Shows the coordinates of the nodes ");
         System.out.println("show latlon:            Shows real latitudes and longitudes of the nodes");
@@ -231,12 +231,12 @@ public class Main extends JFrame {
         System.out.println("show adjmatrix:         Generates adjacency matrix(ces) that correspond with active connections");
 
         System.out.println("\nNode Commands: ");
-        System.out.println("show status:'node_name_here'");
-        System.out.println("show alerts:'node_name_here'");
-        System.out.println("show show firewalllog:'node_name_here'");
-        System.out.println("show viruses:'node_name_here'");
-        System.out.println("show saferoutes:'origin_node_name_here'>'destination_node_name_here'");
-        System.out.println("show shortestpath:'origin_node_name_here'>'destination_node_name_here'");
+        System.out.println("show status:'node_name_here'                                            Shows current status of selected node");
+        System.out.println("show alerts:'node_name_here'                                            Shows alerts of selected node");
+        System.out.println("show firewalllog:'node_name_here'                                       Shows attempts at breaching node firewall(s)");
+        System.out.println("show viruses:'node_name_here'                                           Shows current virus locations");
+        System.out.println("show saferoutes:'origin_node_name_here'>'destination_node_name_here'    Shows all possible safe routs between 2 nodes");
+        System.out.println("show shortestpath:'origin_node_name_here'>'destination_node_name_here'  Shows the shortest safest path between 2 nodes ");
         System.out.println("");
 
         manager.ui.cmdInput.addKeyListener(
@@ -320,9 +320,9 @@ public class Main extends JFrame {
                             }
                             else if(outcome.equals("show outbreaks")) {
                                 int count = 0;
-                                for(int i = 0;i<nodeList.size();i++) {
-                                    if(nodeList.get(i).getOutbreakStatus()) {
-                                        System.out.println(nodeList.get(i).getName()+" has an outbreak");
+                                for (Node node : nodeList) {
+                                    if (node.getOutbreakStatus()) {
+                                        System.out.println(node.getName() + " has an outbreak");
                                         count++;
                                     }
                                 }
@@ -415,7 +415,7 @@ public class Main extends JFrame {
                                 else {
                                     System.out.println("Menu: \n");
                                     System.out.println("Enter Help to show commands ");
-                                    System.out.println("show names: Shows all nodes ");
+                                    System.out.println("show names:             Shows all nodes ");
                                     System.out.println("show connections:       Shows current connections of active nodes");
                                     System.out.println("show xypos:             Shows the coordinates of the nodes ");
                                     System.out.println("show latlon:            Shows real latitudes and longitudes of the nodes");
@@ -430,19 +430,19 @@ public class Main extends JFrame {
                                     System.out.println("show adjmatrix:         Generates adjacency matrix(ces) that correspond with active connections");
 
                                     System.out.println("\nNode Commands: ");
-                                    System.out.println("show status:'node_name_here'");
-                                    System.out.println("show alerts:'node_name_here'");
-                                    System.out.println("show show firewalllog:'node_name_here'");
-                                    System.out.println("show viruses:'node_name_here'");
-                                    System.out.println("show saferoutes:'origin_node_name_here'>'destination_node_name_here'");
-                                    System.out.println("show shortestpath:'origin_node_name_here'>'destination_node_name_here'");
+                                    System.out.println("show status:'node_name_here'                                            Shows current status of selected node");
+                                    System.out.println("show alerts:'node_name_here'                                            Shows alerts of selected node");
+                                    System.out.println("show firewalllog:'node_name_here'                                       Shows attempts at breaching node firewall(s)");
+                                    System.out.println("show viruses:'node_name_here'                                           Shows current virus locations");
+                                    System.out.println("show saferoutes:'origin_node_name_here'>'destination_node_name_here'    Shows all possible safe routs between 2 nodes");
+                                    System.out.println("show shortestpath:'origin_node_name_here'>'destination_node_name_here'  Shows the shortest safest path between 2 nodes ");
                                     System.out.println("");
                                 }
                             }
                             else {
                                 System.out.println("Menu: \n");
                                 System.out.println("Enter Help to show commands ");
-                                System.out.println("show names: Shows all nodes ");
+                                System.out.println("show names:             Shows all nodes ");
                                 System.out.println("show connections:       Shows current connections of active nodes");
                                 System.out.println("show xypos:             Shows the coordinates of the nodes ");
                                 System.out.println("show latlon:            Shows real latitudes and longitudes of the nodes");
@@ -457,12 +457,12 @@ public class Main extends JFrame {
                                 System.out.println("show adjmatrix:         Generates adjacency matrix(ces) that correspond with active connections");
 
                                 System.out.println("\nNode Commands: ");
-                                System.out.println("show status:'node_name_here'");
-                                System.out.println("show alerts:'node_name_here'");
-                                System.out.println("show show firewalllog:'node_name_here'");
-                                System.out.println("show viruses:'node_name_here'");
-                                System.out.println("show saferoutes:'origin_node_name_here'>'destination_node_name_here'");
-                                System.out.println("show shortestpath:'origin_node_name_here'>'destination_node_name_here'");
+                                System.out.println("show status:'node_name_here'                                            Shows current status of selected node");
+                                System.out.println("show alerts:'node_name_here'                                            Shows alerts of selected node");
+                                System.out.println("show firewalllog:'node_name_here'                                       Shows attempts at breaching node firewall(s)");
+                                System.out.println("show viruses:'node_name_here'                                           Shows current virus locations");
+                                System.out.println("show saferoutes:'origin_node_name_here'>'destination_node_name_here'    Shows all possible safe routs between 2 nodes");
+                                System.out.println("show shortestpath:'origin_node_name_here'>'destination_node_name_here'  Shows the shortest safest path between 2 nodes ");
                                 System.out.println("");
                             }
                         }

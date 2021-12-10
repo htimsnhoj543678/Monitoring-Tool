@@ -41,7 +41,7 @@ public class CityLines extends JLabel {
     public Color getColor() {return color;}
 
     /**
-     * method for drawing the points representing the cities
+     * method for drawing the lines between the cities
      * @param g graphics element
      */
     @Override
