@@ -416,10 +416,8 @@ public class Node
      */
     public String returnInfo()
     {
-        return "Name: "+getName()
-                +" Connections:"+getConnections()
-                +" Xpos:"+getXpos()
-                +" Ypos:"+getYpos()
+        return
+                " Connections:"+getConnections()
                 +" Lat:"+getLat()
                 +" Lon:"+getLon()
                 +" Firewall:"+getFirewallStatus()

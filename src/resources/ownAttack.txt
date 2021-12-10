@@ -1,46 +1,6 @@
-Mumbai, green, 2021-02-22, 11:20:00
-Karachi, red, 2021-03-21, 14:05:13
-Karachi, red, 2021-03-21, 14:08:19
-Karachi, red, 2021-03-21, 14:06:27
-Karachi, red, 2021-03-21, 14:07:33
-Karachi, red, 2021-03-21, 14:04:52
-Karachi, blue, 2021-03-22, 12:10:00
-Karachi, green, 2021-03-25, 16:55:00
-London, black, 2021-05-26, 3:30:00
-Shanghai, red, 2021-03-21, 10:30:05
-Shanghai, red, 2021-03-21, 10:31:23
-Shanghai, red, 2021-03-21, 10:31:55
-Chicago, blue, 2021-08-30, 23:11:00
-Montreal, green, 2021-10-25, 15:48:00
-Ho Che Minh City, black, 2021-01-30, 10:20:00
-Mumbai, green, 2021-02-22, 12:20:00
-Karachi, black, 2021-03-22, 14:05:30
-Montreal, red, 2021-03-21, 14:10:19
-Montreal, red, 2021-03-21, 14:08:27
-Miami, red, 2021-03-21, 14:07:33
-Miami, red, 2021-03-21, 14:08:52
-Miami, blue, 2021-03-22, 12:10:00
-Karachi, green, 2021-03-25, 16:56:00
-Karachi, green, 2021-03-25, 16:56:30
-Karachi, green, 2021-03-25, 16:57:00
-London, black, 2021-05-26, 3:20:00
-Sao Paulo, red, 2021-03-21, 10:30:05
-Sao Paulo, red, 2021-03-21, 10:31:23
-Sao Paulo, red, 2021-03-21, 10:31:55
-Chicago, blue, 2021-08-30, 23:11:00
-Montreal, green, 2021-10-25, 15:48:00
-Ho Che Minh City, black, 2021-01-30, 10:19:00
-Paris, green, 2021-02-22, 11:20:00
-Cairo, red, 2021-03-21, 14:05:13
-Cairo, red, 2021-03-21, 14:05:19
-Cairo, red, 2021-03-21, 14:06:27
-Cairo, blue, 2021-03-21, 14:07:33
-Milan, red, 2021-03-21, 14:08:52
-Milan, blue, 2021-03-22, 12:10:00
-Milan, green, 2021-03-25, 16:55:00
-Hong kong, black, 2021-05-26, 3:30:00
-Hong kong, red, 2021-03-21, 10:30:05
-Hong kong, red, 2021-03-21, 10:31:23
-Hong kong, red, 2021-03-21, 10:31:55
-Osaka, blue, 2021-08-30, 23:11:00
-Osaka, green, 2021-10-25, 15:48:00
+Shanghai, black, 2021-11-11, 3:30:01
+Shanghai, red, 2021-11-11, 3:30:02
+Shanghai, red, 2021-11-11, 3:30:03
+Shanghai, red, 2021-11-11, 3:30:04
+Shanghai, blue, 2021-11-11, 3:30:05
+Shanghai, yellow, 2021-11-11, 3:30:06
