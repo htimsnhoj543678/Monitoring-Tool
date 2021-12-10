@@ -1,15 +1,28 @@
 package monitoring.tool;
-
 import java.util.Calendar;
+
+/**
+ * this is the attack class, it takes in a string and then creates an attack object
+ */
 
 public class Attack
 {
+    /**
+     * variables of an Attack object
+     */
     private String name;
     private String colorType;
     private String date;
     private String time;
     private Calendar totalDate;
 
+    /**
+     * attack constructor
+     * @param name node that is being attacked
+     * @param colorType colour of attack
+     * @param date the date of the attack
+     * @param time the time of the attack
+     */
     public Attack(String name, String colorType, String date, String time)
     {
         this.name = name;
@@ -19,26 +32,20 @@ public class Attack
         setTotalDate(date, time);
     }
 
-    public String getName() {
-        return name;
-    }
+    /**
+     * getters for the variables
+     */
+    public String getName() {return name;}
+    public String getColorType() {return colorType;}
+    public String getDate() {return date;}
+    public String getTime() {return time;}
+    public Calendar getTotalDate() {return totalDate;}
 
-    public String getColorType() {
-        return colorType;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public Calendar getTotalDate() {
-        return totalDate;
-    }
-
+    /**
+     * this function converts the strings of date and time into a Calendar object and saves it for future use.
+     * @param date date of the attack
+     * @param time time of the attack
+     */
     public void setTotalDate(String date, String time)
     {
         String thisTime[] = time.split(":");
@@ -54,6 +61,11 @@ public class Attack
         //System.out.println(totalDate.getTime());
     }
 
+    /**
+     * this function compares the current attack's date and time against a given attack's date and time.
+     * @param that the attack who's date we want to compare to
+     * @return returns the difference in the date and time in seconds.
+     */
     public long compareDateTime(Attack that)
     {
         //returns the number of seconds between the current attack and the given attack
