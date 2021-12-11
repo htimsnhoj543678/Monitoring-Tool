@@ -1,0 +1,6 @@
+Shanghai, black, 2021-11-11, 3:30:01
+Shanghai, red, 2021-11-11, 3:30:02
+Shanghai, red, 2021-11-11, 3:30:03
+Shanghai, red, 2021-11-11, 3:30:04
+Shanghai, blue, 2021-11-11, 3:30:05
+Shanghai, yellow, 2021-11-11, 3:30:06

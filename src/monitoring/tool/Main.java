@@ -156,8 +156,7 @@ public class Main extends JFrame {
         Queue<Attack> attackQueue = new LinkedList<>();
         for (int i = 0; i < attackList.size(); i++) {
             attackQueue.add(attackList.get(i));
-            Attack cAttack = attackList.get(i);
-            System.out.println("Attack:: Name: " + cAttack.getName() + " Colour: " + cAttack.getColorType() + " Date: " + cAttack.getDate() + " Time: " + cAttack.getTime());
+
         }
         while (!attackQueue.isEmpty()){
             for (int i = 0; i <= nodeList.size(); i++)
@@ -210,8 +209,6 @@ public class Main extends JFrame {
         Queue<Attack> newAttackQueue = new LinkedList<>();
         for (int i = 0; i < newAttackList.size(); i++) {
             newAttackQueue.add(newAttackList.get(i));
-            Attack cAttack = newAttackList.get(i);
-            System.out.println("Attack:: Name: " + cAttack.getName() + " Colour: " + cAttack.getColorType() + " Date: " + cAttack.getDate() + " Time: " + cAttack.getTime());
         }
         while (!newAttackQueue.isEmpty()){
             for (int i = 0; i <= nodeList.size(); i++)
@@ -400,7 +397,9 @@ public class Main extends JFrame {
                             {
                                 for(int i = 0;i<nodeList.size();i++)
                                 {
-                                    nodeList.get(i).sortAttacksByColour();;
+                                    if(nodeList.get(i).getFirewallStatus()){
+                                        nodeList.get(i).sortAttacksByColour();;
+                                    }
                                 }
                             }
                             else if(outcome.equals("show infected"))
