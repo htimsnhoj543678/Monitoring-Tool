@@ -15,6 +15,7 @@ public class Attack
     private String date;
     private String time;
     private Calendar totalDate;
+    private boolean usedForOutbreak;
 
     /**
      * attack constructor
@@ -30,6 +31,7 @@ public class Attack
         this.date = date;
         this.time = time;
         setTotalDate(date, time);
+        usedForOutbreak = false;
     }
 
     /**
@@ -40,6 +42,14 @@ public class Attack
     public String getDate() {return date;}
     public String getTime() {return time;}
     public Calendar getTotalDate() {return totalDate;}
+
+    public boolean isUsedForOutbreak() {
+        return usedForOutbreak;
+    }
+
+    public void setUsedForOutbreak(boolean usedForOutbreak) {
+        this.usedForOutbreak = usedForOutbreak;
+    }
 
     /**
      * this function converts the strings of date and time into a Calendar object and saves it for future use.

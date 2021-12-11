@@ -10,9 +10,9 @@ public class Node
     /**
      * variables for the Node class
      */
-    private String name;                                            //name of the node eg: "Hong Kong"
-    private double lat;                                             //type may be changed, will be latitude on map
-    private double lon;                                             //type may be changed, will be longitude on map
+    private final String name;                                            //name of the node eg: "Hong Kong"
+    private final double lat;                                             //type may be changed, will be latitude on map
+    private final double lon;                                             //type may be changed, will be longitude on map
     private int xpos;
     private int ypos;
     private boolean onlineStatus;                                   //default true or false if node has 6 or more injections with a min of 2 types of viruses
@@ -202,7 +202,7 @@ public class Node
                         counter++;
                     }
                     if (counter > 2){
-                        System.out.println("Alert!!! " + this.getName() + " was injected with at least 2 " + attacks.get(0).getColorType() + " viruses in the last 2 minutes");
+                        System.out.println("Alert!!! " + this.getName() + " was injected with 2 or more " + attacks.get(0).getColorType() + " viruses in the last 2 minutes");
                         numberOfAlerts++;
                         break;
                     }
@@ -228,11 +228,14 @@ public class Node
             {
                 if (attacks.get(attacks.size()-1).compareDateTime(attacks.get(i)) <= 240)
                 {
-                    if (attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType()))
+                    if ((attacks.get(attacks.size()-1).getColorType().equals(attacks.get(i).getColorType())) && (!attacks.get(i).isUsedForOutbreak()))
                     {
                         counter++;
                     }
                     if(counter >= 4){
+                        for (int j = attacks.size()-1; j > attacks.size()-5 ; j--) {
+                            attacks.get(j).setUsedForOutbreak(true);
+                        }
                         System.out.println("WARNING - OUTBREAK: " + this.getName() + " was injected with at least 4 " + attacks.get(0).getColorType() + " viruses in the last 4 minutes");
                         System.out.println("This is the adjacency matrix before the "+ attacks.get(attacks.size()-1).getColorType()+" outbreak from Node: " +this.getName() +" at: " + attacks.get(attacks.size()-1).getDate()+" "+attacks.get(attacks.size()-1).getTime());
                         adjMatrix();
@@ -417,7 +420,7 @@ public class Node
     public String returnInfo()
     {
         return
-                " Connections:"+getConnections()
+                "Connections:"+getConnections()
                 +" Lat:"+getLat()
                 +" Lon:"+getLon()
                 +" Firewall:"+getFirewallStatus()
@@ -451,6 +454,7 @@ public class Node
      * @param visitedNodes a stack of the nodes previously visited.
      * @return returns -1 if no route is found, returns 1 if a route is found
      */
+
     public int allSafeRoutes(Node destNode, Stack<Node> visitedNodes){
         int out = -1;
         visitedNodes.push(this);
